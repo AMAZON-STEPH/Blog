@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./pages/index.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Admin Dashboard</title>
+</head>
+<body class="flex h-[100vh] overflow-hidden">
+
+    <header class="bg-gradient-to-tr from-gray-950 via-gray-900 to-gray-950 h-[100vh] w-[40%] lg:w-[20%] text-white gap-3 flex flex-col p-4">
+      <h2 class="text-[25px] font-bold tracking-wide">Adimin Dashboard</h2>
+      <div class="flex flex-col gap-2">
+
+      <div data-section="home" class=" menu-item flex gap-2 bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+        <i class="fas fa-home"></i>
+        <h3 class="font-[500] tracking-wide">Home</h3>
+      </div>
+
+      <div data-section="posts" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+        <i class="fas fa-newspaper"></i>
+        <h3 class="font-[500] tracking-wide">Posts</h3>
+      </div>
+
+      <div data-section="upload" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+        <i class="fas fa-upload"></i>
+        <h3 class="font-[500] tracking-wide">Upload</h3>
+      </div>
+
+      <div data-section="analytics" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+        <i class="fas fa-chart-line"></i>
+        <h3 class="font-[500] tracking-wide">Analytics</h3>
+      </div>
+
+      <div data-section="settings" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+        <i class="fas fa-cog"></i>
+        <h3 class="font-[500] tracking-wide">Settings</h3>
+      </div>
+
+      </div>
+    </header>
+
+    <main class="w-full p-4 overflow-y-auto">
+
+    <section id="home" class="flex flex-col gap-5 lg:gap-[4em] justify-center p-2">
+       <div class="flex flex-col lg:flex-row gap-2 lg:gap-0 lg:justify-around">
+        <h3 class="text-[26px] lg:text-[29px] font-[800] tracking-wide">Welcome Back <i class="fas fa-hand text-yellow-400"></i></h3>
+        <button class="bg-black text-white py-3 px-8 rounded-tl-[20px] rounded-br-[10px] text-[18px] font-[500] transition-all duration-300 hover:bg-gray-800 active:scale-90">+ New Post</button>
+       </div>
+
+        <div class="flex flex-col gap-7">
+       <div class="flex flex-col lg:flex-row gap-3 justify-center lg:justify-evenly lg:h-[30vh]">
+        <div class="p-3 flex flex-col gap-3 lg:gap-5 shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] rounded-lg lg:w-full ">
+        <p class="text-[18px] font-[700]">Total posts</p>
+        <span class="font-[500]">79</span>
+        </div>
+        <div class="p-3 flex flex-col gap-1 shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] rounded-lg lg:w-full">
+        <p class="text-[18px] font-[700]">Views</p>
+        <span class="font-[500]">345</span>
+        </div>
+       <div class="p-3 flex flex-col gap-1 shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] rounded-lg lg:w-full">
+        <p class="text-[18px] font-[700]">Comments</p>
+        <span class="font-[500]">50</span>
+        </div>
+       </div>
+
+       <div class="flex flex-col flex-wrap gap-1 w-full shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] p-2 rounded-lg">
+        <h3 class="font-bold text-[20px] tracking-wide">Recent Posts</h3>
+
+        <div class="flex flex-col lg:flex-row lg:justify-evenly gap-2">
+
+        <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full">
+          <h2 class="font-[700] tracking-wide text-[18px] text-red-700">Title</h2>
+          <p class="text-[15px]">news</p>
+        </div>
+      
+        <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full">
+          <h2 class="font-[700] tracking-wide text-[18px] text-red-700">Category</h2>
+          <p>Technology</p>
+        </div>
+
+        <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full">
+          <h2 class="font-[700] tracking-wide text-[18px] text-red-700">Date</h2>
+          <p>7 Nov</p>
+        </div>
+
+        <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 w-full">
+          <h2 class="font-[800] text-[17px]">Action</h2>
+          <p class="text-blue-500 transition-all duration-300  active:underline">Edit</p>
+      </div>
+
+       </div>
+       </div>
+       </div>
+       </section>
+      
+       <section id="posts" class="hidden">
+         <h2 class="text-[26px] font-bold mb-4">All Posts</h2>
+         <p class="text-gray-600">Here ll see all uploaded posts.</p>
+
+       </section>
+
+       <section id="upload" class="hidden">
+         <h2 class="text-[25px] font-bold tracking-wide mb-4">Upload New Post</h2>
+        <form id="uploadForm" class="flex flex-col gap-4">
+          <input type="text" name="title" placeholder="Post title" class="border p-2 rounded-lg" id="title">
+
+          <input type="text" id="category" placeholder="category" class="border p-2 rounded-lg" required>
+
+          <input type="text" name="imageUrl" id="imageUrl" placeholder="image" class="border p-2 rounded-lg">
+
+          <textarea name="article" id="article" placeholder="what is happening ..." class="w-full h-[200px] resize-none border-2 border-red-400 rounded-lg p-3 text-[16px] outline-none focus:border-red-600 placeholder:text-gray-500"></textarea>
+
+          <button type="b" class="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition active:scale-90">Upload</button>
+       </form>
+         <p id="uploadMsg" class="text-center text-sm mt-2"></p>
+       </section>
+
+        <section id="analytics" class="hidden">
+          <h2 class="text-[26px] font-bold mb-4">Analytics</h2>
+          <p class="text-gray-600">Coming soon...</p>
+        </section>
+
+        <section id="settings" class="hidden">
+          <h2 class="text-[26px] font-bold mb-4">Settings</h2>
+          <p class="text-gray-600">Update your account details here.</p>
+        </section>
+
+
+  </main>
+ 
+  <script type="module" src="../Myjsfiles/dashboard.js"></script>
+</body>
+</html>

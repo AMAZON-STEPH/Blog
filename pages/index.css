@@ -1,0 +1,12 @@
+*{
+  scrollbar-width: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+b{
+  font-family:Old English Text MT;
+}
+b>span{
+  font-family:sans-serif;
+}

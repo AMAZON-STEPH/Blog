@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./pages/index.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Blog</title>
+</head>
+<body class="bg-gray-100 flex flex-col gap-[4em]">
+  <header class="flex flex-col justify-center items-center fixed top-0 w-full z-40 bg-gray-100">
+  <div class="border-t border-black border-b py-2 text-[15px] px-2 w-full">
+
+    <div class="flex justify-between">
+      <div class="flex gap-2 items-center">
+        <i class="fas fa-globe animate-spin"></i>
+        <p class="today"></p>
+      </div>
+      <div class="flex lg:gap-6 gap-3 items-center">
+         <p id="setting" class="text-[15px] hover:bg-gray-300 active:scale-90 px-[5px] rounded-[3px] font-[500]">The menu</p>
+
+     <div id="login" class="fixed inset-0 bg-black/50 flex justify-center items-start pt-20 z-40 hidden">  
+        
+        <section class="flex flex-col border-2 border-gray-700 w-[80%] lg:w-[60%] h-[70vh] rounded-[5px] items-center justify-center gap-7 absolute bg-white">
+         <i id="removeLogin" class="fas fa-remove text-[20px] hover:bg-gray-300 p-2 rounded-full transition-all active:scale-110"></i> 
+        <h2 class="text-[18px] font-semibold">Login to Dashboard</h2>
+       <form id="logindata" action="" class="flex flex-col items-center gap-5">
+        <input id="email" type="text" name="email" placeholder="email address" class="border border-gray-800 px-9 py-1 outline-none" required>
+        <div class="relative">
+        <input id="password" type="password" name="password" placeholder="password" class="border border-gray-800 px-9 py-1 outline-none">
+        <i id="showPassword" class="far fa-eye-slash absolute right-3 top-2 cursor-pointer"></i>
+        </div>
+         <p id="direction"></p>
+        <button type="submit" id="Btn" class="bg-black text-white px-10 py-1 rounded-tl-[10px] rounded-br-[10px] transition-all duration-300 hover:bg-black/80 active:scale-90">login</button>
+      </form>
+      </section>
+
+     </div> 
+        <i id="exist" class="fas fa-chevron-right hover:bg-gray-300 p-2 rounded-full transition-all active:scale-110"></i>
+        <i class="fas fa-magnifying-glass hover:bg-gray-300 p-2 rounded-full transition-all active:scale-110" id="search"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <b class="text-[40px] font-[800] tracking-tight">The <span class="tracking-tight">News</span></b>
+  <nav class="border-t border-black border-b py-2 text-[15px] px-2 w-full">
+   <ul class="flex items-center gap-2 lg:justify-evenly text-[14px] font-[500]  overflow-x-scroll shrink-0 lg:shrink">
+   <li id="worldnews" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/worldNews.html">World News</a></li>
+   <li id="politics" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/Politics.html">Politics</a></li>
+   <li id="business" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/Business.html">Business</a></li>
+   <li id="technology" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/Technology.html">Technology</a></li>
+   <li id="health" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/Health.html">Health</a></li>
+   <li id="sports" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/Sports.html">Sports</a></li> 
+   <li id="culture" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/Culture.html">Culture</a></li> 
+   <li id="podcast" class="shrink-0 hover:bg-gray-300 rounded-[6px] py-1 px-3"><a href="./pages/Podcast.html">Podcast</a></li>
+</ul>
+</nav>
+  </header>
+
+  <main class="flex flex-col gap-5 items-center justify-center px-7 pt-[14em]">
+
+    <section class="flex flex-col gap-4">
+
+      <div id="trending" class="flex flex-wrap lg:flex-nowrap gap-4 lg:justify-between items-center px-3">
+
+      <div class="flex gap-3" id="world-news">
+        <img id="world-img" src="" alt="worldtech">
+        <div>
+          <h3 class="font-[600]">WORLD NEWS</h3>
+          <p id="world-desc"></p>
+        </div>
+      </div>
+
+
+      <div class="flex gap-3" id="tech-news">
+        <img id="tech-img" src="" alt="techworld">
+        <div>
+          <h3 class="font-[600]">TECHNOLOGY</h3>
+          <p id="tech-desc"></p>
+        </div>
+      </div>
+
+        <div class="flex gap-3" id="health-news">
+          <img id="health-img" src="" alt="healthworld">
+          <div>
+            <h3 class="font-[600]">HEALTH</h3>
+            <p id="health-desc"></p>
+          </div>
+        </div>
+
+        <div class="flex gap-3" id="health-news">
+          <img id="sports-img" src="" alt="sportsworld">
+          <div>
+            <h3 class="font-[600]">SPORTS</h3>
+            <p id="sports-desc" class="text-[15px]"></p>
+          </div>
+        </div>
+
+      </div>
+
+
+  <div id="live-update" class="flex flex-col gap-5">
+    <img id="live-img" src="" alt="live update">
+
+    <div class="flex flex-col lg:flex-row gap-5 justify-between px-2">
+      <div class="lg:w-[80%] flex flex-col gap-3">
+        <div>
+          <button id="live-category" class="border-2 border-black rounded-[10px] px-4 py-2 text-[15px]"></button>
+          <button id="live-author" class="border-2 border-black rounded-[10px] px-4 py-2 text-[15px]"></button>
+        </div>
+        <p id="live-title" class="font-[600] text-[24px] lg:text-[30px]">
+  
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-1 text-[12px]">
+        <p id="live-date"></p>
+        <p class="flex items-center gap-2">
+          Read Article <i class="fas fa-arrow-right"></i>
+        </p>
+      </div>
+    </div>
+  </div>
+
+      </section>
+
+      <section class="flex flex-col gap-5">
+        <div class="flex justify-between border-b border-black py-2
+        ">
+          <h3 class="">LATEST NEWS</h3>
+          <p>VIEW ALL <i class="fas fa-arrow-right"></i></p>
+        </div>
+
+        <div class="flex flex-col gap-5">
+          <div class="flex gap-5 flex-col lg:flex-row">
+          <img class="w-[60] lg:w-[40%] " src="./images/mosque.png" alt="">
+        <div class="flex flex-col gap-3">
+          <div class="flex gap-2">
+            <div class="flex flex-col">
+            <p class="font-[500]">The effects of geopolitical shifts on global security</p>
+            <p class="text-[12px] font-[400]">World News - Sep 9, 2024</p>
+            </div>
+            <img class=" w-[40%] rounded-[7px]" src="./images/mantalking.png" alt="">
+          </div>
+          <div class="flex gap-2">
+            <div class="flex flex-col">
+            <p class="font-[500]">Affect the integrity and future of professional sports</p>
+            <p class="text-[12px] font-[400]">Sports - Sep 9, 2024</p>
+            </div>
+            <img class=" w-[40%] rounded-[7px]" src="./images/entering taxi.png" alt="">
+          </div>
+        </div>
+        </div>
+
+      <div class="flex justify-evenly gap-6 overflow-x-scroll">
+        <div class="flex flex-col gap-2 shrink-0 lg:shrink">
+           <img src="./images/containegooders.png" alt="">
+            <p class="font-[500] text-[15px]">Strategies for success in a competitive landscape</p>
+            <p class="text-[12px]">Business - Sep 9, 2025</p>
+        </div>
+
+         <div class="flex flex-col gap-2 shrink-0 lg:shrink">
+           <img class="" src="./images/carmoving.png" alt="">
+            <p class="font-[500] text-[15px]">Innovation hubs are transforming traditional business models</p>
+            <p class="text-[12px]">Business - Sep 9, 2025</p>
+        </div>
+
+         <div class="flex flex-col gap-2 flex-shrink-0 lg:shrink">
+           <img src="./images/Background.png" alt="">
+            <p class="font-[500] text-[15px]">Tailoring treatments to individual genetic profiles</p>
+            <p class="text-[12px]">Business - Sep 9, 2025</p>
+        </div>
+
+      </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-5">
+     <div class="flex justify-between border-b border-black py-2">
+        <h3 class="">WORLD NEWS</h3>
+        <p>VIEW ALL <i class="fas fa-arrow-right"></i></p>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-row lg:flex-nowrap gap-5">
+        <img class="lg:w-[60%] w-full lg:h-[88vh]" src="./images/soilders.png" alt="soliders">
+
+        <div class="flex flex-col gap-4 items-center justify-center">
+          <div class="flex gap-2 items-center justify-center">
+            <img class=" lg:h-[27vh]" src="./images/global.png" alt="">
+            <div class="flex flex-col gap-2">
+              <p class="text-[12px] font-[400]">Guy Hawkins - sep 9, 2024</p>
+              <p class="text-[15px] font-[500]">The global financial landscape and its implications for all</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 items-center justify-center">
+            <img class="lg:h-[27vh]" src="./images/examining.png" alt="">
+            <div class="flex flex-col gap-2">
+              <p class="text-[12px] font-[400]">Guy Hawkins - sep 9, 2024</p>
+              <p class="text-[15px] font-[500]">Examining the challenges and responses of nations</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 items-center justify-center">
+            <img class="lg:h-[27vh]" src="./images/fire.png" alt="">
+            <div class="flex flex-col gap-2">
+              <p class="text-[12px] font-[400]">Guy Hawkins - sep 9, 2024</p>
+              <p class="text-[15px] font-[500]">A comprehensive analysis of the state of global affairs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-5">
+       <div class="flex justify-between border-b border-black py-2">
+        <h3 class="">TECHNOLOGY NEWS</h3>
+        <p>VIEW ALL <i class="fas fa-arrow-right"></i></p>
+      </div>
+
+      <div class="flex flex-wrap lg:flex-row lg:flex-nowrap gap-4 items-center overflow-x-auto">
+  <div class="flex flex-col gap-2 w-full">
+    <img class="h-[37vh] w-full object-cover rounded-[5px]" src="./images/latest innovation.png" alt="latestinnovation">
+    <p class="font-[400] text-[12px]">Guy Hawkins - Sep 9, 2025</p>
+    <p class="font-[500] text-[15px]">Latest Innovations Pave the Way to a Sustainable Future</p>
+  </div>
+
+  <div class="flex flex-col gap-2 w-full">
+    <img class="h-[37vh] w-full object-cover rounded-[5px]" src="./images/bigdata.png" alt="latestinnovation">
+    <p class="text-[12px] font-[400]">Guy Hawkins - Sep 9, 2025</p>
+    <p class="font-[500] text-[15px]">Understanding the role of big data in driving technological</p>
+  </div>
+
+  <div class="flex flex-col gap-2 w-full">
+    <img class="h-[37vh] w-full object-cover rounded-[5px]" src="./images/theirai.png" alt="latestinnovation">
+    <p class="text-[12px] font-[400]">Guy Hawkins - Sep 9, 2025</p>
+    <p class="font-[500] text-[15px]">Exploring the latest developments in AI, Robotics</p>
+  </div>
+
+  <div class="flex flex-col gap-2 w-full">
+    <img class="h-[37vh] w-full object-cover rounded-[5px]" src="./images/futurecomputing.png" alt="latestinnovation">
+    <p class="text-[12px] font-[400]">Guy Hawkins - Sep 9, 2025</p>
+    <p class="font-[500] text-[15px]">Future of computing and what it means for society</p>
+  </div>
+</div>
+
+    </section>
+
+    <section class="flex flex-col gap-5">
+       <div class="flex justify-between border-b border-black py-2">
+        <h3 class="font-[500]">PODCASTS</h3>
+        <p>VIEW ALL <i class="fas fa-arrow-right"></i></p>
+      </div>
+
+      <div class="flex flex-wrap lg:grid lg:grid-cols-3 gap-5">
+        <div class="flex gap-2">
+          <img class="h-[30vh]" src="./images/ridetide.png" alt="">
+          <div class="flex flex-col gap2">
+            <p class="font-[500] text-[15px]">Riding the tide of innovation and inspiration</p>
+            <p class="font-[400] text-[12px]">The latest trends, creative breakthroughs, and the visionary minds driving change</p>
+            <p class="text-[12px] font-[400]">10 Minutes - Guy Hawkins</p>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <img class="h-[30vh]" src="./images/chess.png" alt="">
+          <div class="flex flex-col gap2">
+            <p class="font-[500] text-[15px]">Riding the tide of innovation and inspiration</p>
+            <p class="font-[400] text-[12px]">The latest trends, creative breakthroughs, and the visionary minds driving change</p>
+            <p class="text-[12px] font-[400]">10 Minutes - Guy Hawkins</p>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <img class="h-[30vh]" src="./images/ideas.png" alt="">
+          <div class="flex flex-col gap2">
+            <p class="font-[500] text-[15px]">Riding the tide of innovation and inspiration</p>
+            <p class="font-[400] text-[12px]">The latest trends, creative breakthroughs, and the visionary minds driving change</p>
+            <p class="text-[12px] font-[400]">10 Minutes - Guy Hawkins</p>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <img class="h-[30vh]" src="./images/voices.png" alt="">
+          <div class="flex flex-col gap2">
+            <p class="font-[500] text-[15px]">Riding the tide of innovation and inspiration</p>
+            <p class="font-[400] text-[12px]">The latest trends, creative breakthroughs, and the visionary minds driving change</p>
+            <p class="text-[12px] font-[400]">10 Minutes - Guy Hawkins</p>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <img class="h-[30vh]" src="./images/ideasflight.png" alt="">
+          <div class="flex flex-col gap2">
+            <p class="font-[500] text-[15px]">Riding the tide of innovation and inspiration</p>
+            <p class="font-[400] text-[12px]">The latest trends, creative breakthroughs, and the visionary minds driving change</p>
+            <p class="text-[12px] font-[400]">10 Minutes - Guy Hawkins</p>
+          </div>
+        </div>
+
+         <div class="flex gap-2">
+          <img class="h-[30vh]" src="./images/provokingtopics.png" alt="">
+          <div class="flex flex-col gap2">
+            <p class="font-[500] text-[15px]">Riding the tide of innovation and inspiration</p>
+            <p class="font-[400] text-[12px]">The latest trends, creative breakthroughs, and the visionary minds driving change</p>
+            <p class="text-[12px] font-[400]">10 Minutes - Guy Hawkins</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="flex flex-col gap-2 border-t-2 border-black">
+   <b class="text-[40px] font-[800] tracking-tight">The <span class="tracking-tight">News</span></b>
+    <div class="flex justify-between px-2 border-b border-t border-black items-center">
+    <p class="text-[13px] font-[400]">Copyright &#169 2025 - The News - All rights reserved</p>
+    <div class="flex gap-2 items-center py-2">
+      <i class="fa-brands fa-instagram text-[20px]"></i>
+      <i class="fa-brands fa-linkedin text-[20px]"></i>
+      <i class="fa-brands fa-youtube text-[20px]"></i>
+      <i class="fa-brands fa-twitter text-[20px]"></i>
+      <i class="fa-brands fa-reddit-alien text-[20px] bg-white"></i>
+    </div>
+    </div>
+  </footer>
+   <script type="module" src="./pages/index.js"></script>
+   <script type="module" src="./pages/script.js"></script>
+</body>
+</html>
