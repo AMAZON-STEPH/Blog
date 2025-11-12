@@ -1,3 +1,4 @@
+import{cookies} from "../Myjsfiles/cookie.js";
 async function changeNews(category, imgId, descId) {
   const img = document.getElementById(imgId);
   const desc = document.getElementById(descId);
@@ -96,67 +97,63 @@ startLiveUpdates();
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Elements ---
   const settingBtn = document.getElementById("setting");
   const loginModal = document.getElementById("login");
   const closeBtn = document.getElementById("removeLogin");
   const showPasswordBtn = document.getElementById("showPassword");
   const loginForm = document.getElementById("logindata");
   const direction = document.getElementById("direction");
-  const passwordInput = document.getElementById("password");
-  const emailInput = document.getElementById("email")
+  const password = document.getElementById("password");
+  const email = document.getElementById("email")
 
-  // --- Open modal ---
   settingBtn.addEventListener("click", () => {
     loginModal.classList.remove("hidden");
   });
 
-  // --- Close modal ---
   closeBtn.addEventListener("click", () => {
     loginModal.classList.add("hidden");
   });
 
-  // Close modal if click outside form
   loginModal.addEventListener("click", (e) => {
     if (e.target === loginModal) loginModal.classList.add("hidden");
   });
 
-  // --- Toggle password visibility ---
   showPasswordBtn.addEventListener("click", () => {
-    const type = passwordInput.type === "password" ? "text" : "password";
-    passwordInput.type = type;
+    const type = password.type === "password" ? "text" : "password";
+    password.type = type;
     showPasswordBtn.classList.toggle("fa-eye");
     showPasswordBtn.classList.toggle("fa-eye-slash");
   });
 
-  // --- Handle login form submission ---
  const savedEmail = localStorage.getItem("userEmail");
   if (savedEmail) {
-    emailInput.value = savedEmail;
+    email.value = savedEmail;
   }
 
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
+    const theemail = email.value.trim();
+    const thepassword = password.value.trim();
 
     direction.textContent = "";
     direction.classList.remove("text-red-600", "text-green-600");
 
-    if (!email || !password) {
+    if (!theemail || !thepassword) {
       direction.textContent = "Please enter your email and password.";
       direction.classList.add("text-red-600");
       return;
     }
+    
 
     let data
     try {
-      const res = await fetch("https://newsapi-w6iw.onrender.com/login", {
+      const res = await fetch("https://newsapi-w6iw.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password: passwordValue }),
+        body: JSON.stringify({ email: theemail, password: thepassword }),
       });
+       console.log("Response status:", res.status);
 
        data = await res.json();
       console.log("Response:", data);
@@ -167,22 +164,19 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // ✅ Save auth token for 7 days
-      document.cookie = `authToken=${data.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax; Secure`;
-
-      // ✅ Save email to auto-fill next time
-      localStorage.setItem("userEmail", email);
+     const {setCookie} = cookies()
+     setCookie("authToken", data.token, 7);
+      localStorage.setItem("userEmail", theemail);
 
       direction.textContent = "Login successful! Redirecting...";
       direction.classList.add("text-green-600");
 
-      // ✅ Redirect to dashboard
       setTimeout(() => {
-        window.location.href = "/pages/dashboard.html";
+        window.location.href = "../pages/dashboard.html";
       }, 1500);
 
-    } catch (err) {
-      console.log("Login error:", err);
+    } catch (error) {
+      console.log("Login error", error);
       direction.textContent = "Network error. Try again.";
       direction.classList.add("text-red-600");
     }

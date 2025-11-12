@@ -1,14 +1,3 @@
-// const politices = document.querySelectorAll("#business div");
-
-// politices.forEach(content => {
-//   content.addEventListener("click", () => {
-//     const id = content.getAttribute("data-id");
-//     if (id) {
-//       window.location = `../detail/businessdetail.html?id=${id}`;
-//     }
-//   })
-// })
-
 import { Nav, date } from "../Myjsfiles/nav.js";
 
 document.addEventListener("DOMContentLoaded", () => {
