@@ -9,22 +9,22 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <title>sign up</title>
 </head>
-<body class="bg-black flex items-center justify-center">
+<body class="h-screen bg-black flex items-center justify-center">
   <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
     <h2 class="text-2xl font-bold mb-6 text-center">Sign Up</h2>
     
     <form id="signupForm" class="flex flex-col items-center gap-5">
-      <input type="text" id="name" placeholder="Full Name"
-        class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <input type="text" id="name" placeholder="full Name"
+        class="border border-gray-800 px-9 py-1 outline-none rounded placeholder:text-gray-600">
 
-      <input type="email" id="email" placeholder="Email Address"
-        class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring">
+      <input type="email" id="email" placeholder="email Address"
+        class="border border-gray-800 px-9 py-1 outline-none rounded placeholder:text-gray-600">
          <div class="relative">
-        <input id="password" type="password" name="password" placeholder="password" class="border border-gray-800 px-9 py-1 outline-none">
-        <input type="text" name="adminCode" placeholder="Admin Code" id="adminCode">
+        <input id="password" type="password" name="password" placeholder="password" class="border border-gray-800 px-9 py-1 outline-none rounded placeholder:text-gray-600">
         <i id="showPassword" class="far fa-eye-slash absolute right-3 top-2 cursor-pointer"></i>
         </div>
-        <p id="direction" class="text-[14px]"></p>
+         <input type="text" name="adminCode" placeholder="admin Code" id="adminCode" class="border border-gray-800 px-9 py-1 outline-none rounded placeholder:text-gray-600">
+        <p id="direction" class="text-[13px]"></p>
         <button type="submit" class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring">submit</button>
         </form>
         </div>

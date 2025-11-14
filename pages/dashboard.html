@@ -11,44 +11,52 @@
 </head>
 <body class="flex h-[100vh] overflow-hidden">
 
-    <header class="bg-gradient-to-tr from-gray-950 via-gray-900 to-gray-950 h-[100vh] w-[40%] lg:w-[20%] text-white gap-3 flex flex-col p-4">
-      <h2 class="text-[25px] font-bold tracking-wide">Adimin Dashboard</h2>
-      <div class="flex flex-col gap-2">
-
-      <div data-section="home" class=" menu-item flex gap-2 bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+    <header id="sidebar" class="bg-gradient-to-tr from-gray-950 via-gray-900 to-gray-950 h-screen w-[40%] sm:w-[50%] lg:w-[20%] fixed lg:static top-0 left-0 z-50 p-4 flex flex-col gap-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out text-white">
+    
+    <h2 class="text-[25px] font-bold tracking-wide">Admin Dashboard</h2>
+    
+    <div class="flex flex-col gap-2">
+      <div data-section="home" class="menu-item flex items-center gap-2 bg-white/10 p-2 rounded-lg transition-all duration-300 active:scale-90 cursor-pointer">
         <i class="fas fa-home"></i>
-        <h3 class="font-[500] tracking-wide">Home</h3>
+        <h3 class="font-medium tracking-wide">Home</h3>
       </div>
 
-      <div data-section="posts" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+      <div data-section="posts"
+        class="menu-item flex items-center gap-2 hover:bg-white/10 p-2 rounded-lg transition-all duration-300 active:scale-90 cursor-pointer">
         <i class="fas fa-newspaper"></i>
-        <h3 class="font-[500] tracking-wide">Posts</h3>
+        <h3 class="font-medium tracking-wide">Posts</h3>
       </div>
 
-      <div data-section="upload" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+      <div data-section="upload"
+        class="menu-item flex items-center gap-2 hover:bg-white/10 p-2 rounded-lg transition-all duration-300 active:scale-90 cursor-pointer">
         <i class="fas fa-upload"></i>
-        <h3 class="font-[500] tracking-wide">Upload</h3>
+        <h3 class="font-medium tracking-wide">Upload</h3>
       </div>
 
-      <div data-section="analytics" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+       <div data-section="analytics" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
         <i class="fas fa-chart-line"></i>
         <h3 class="font-[500] tracking-wide">Analytics</h3>
-      </div>
+       </div>
 
-      <div data-section="settings" class=" menu-item flex gap-2 hover:bg-white/10 p-2 rounded-lg flex items-center transition-all duration-300 active:scale-90">
+      <div data-section="settings"
+        class="menu-item flex items-center gap-2 hover:bg-white/10 p-2 rounded-lg transition-all duration-300 active:scale-90 cursor-pointer">
         <i class="fas fa-cog"></i>
-        <h3 class="font-[500] tracking-wide">Settings</h3>
+        <h3 class="font-medium tracking-wide">Settings</h3>
       </div>
+    </div>
+  </header>
 
-      </div>
-    </header>
+  <button id="toggleSidebar" class="lg:hidden fixed top-4 left-4 z-50 bg-gray-800 text-white p-2 rounded-md">
+    <i class="fas fa-bars"></i>
+  </button>
+
 
     <main class="w-full p-4 overflow-y-auto">
 
     <section id="home" class="flex flex-col gap-5 lg:gap-[4em] justify-center p-2">
        <div class="flex flex-col lg:flex-row gap-2 lg:gap-0 lg:justify-around">
         <h3 class="text-[26px] lg:text-[29px] font-[800] tracking-wide">Welcome Back <i class="fas fa-hand text-yellow-400"></i></h3>
-        <button class="bg-black text-white py-3 px-8 rounded-tl-[20px] rounded-br-[10px] text-[18px] font-[500] transition-all duration-300 hover:bg-gray-800 active:scale-90">+ New Post</button>
+        <button class="bg-black text-white py-3 px-8 rounded-tl-[20px] rounded-br-[10px] text-[18px] font-[500] transition-all duration-300 hover:bg-gray-800 active:scale-90" id="newPost">+ New Post</button>
        </div>
 
         <div class="flex flex-col gap-7">
@@ -110,7 +118,8 @@
 
           <input type="text" id="category" placeholder="category" class="border p-2 rounded-lg" required>
 
-          <input type="text" name="imageUrl" id="imageUrl" placeholder="image" class="border p-2 rounded-lg">
+          <input type="file" name="imageUrl" id="imageUrl" placeholder="image" class="border p-2 rounded-lg" accept="image/*,.pdf,.doc,.docx,.txt">
+          <img src="" alt="" id="preview" style="max-width:200px; display:none; margin-top:10px;">
 
           <textarea name="article" id="article" placeholder="what is happening ..." class="w-full h-[200px] resize-none border-2 border-red-400 rounded-lg p-3 text-[16px] outline-none focus:border-red-600 placeholder:text-gray-500"></textarea>
 

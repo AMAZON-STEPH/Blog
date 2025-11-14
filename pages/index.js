@@ -1,16 +1,17 @@
-import { Nav, date,exist,search } from '../Myjsfiles/nav.js';
-
+import { Nav, date, similarnews, detailed, exist, search } from '../Myjsfiles/nav.js';
+import { cookies } from "../Myjsfiles/cookie.js";
 document.addEventListener("DOMContentLoaded", () => {
   Nav();
   date();
+  similarnews();
+  // detailed();
   exist();
   search();
-  // similarnews();
-});
+
 
 const apiURL = "https://";
 
-import { cookies } from "./nav.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const { getCookie, setCookie, deleteCookie } = cookies();
@@ -105,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add your existing news + live updates code here...
 });
 
-
+})
 
 
 

@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
           items.setAttribute("data-slug", news.slug);
 
           items.innerHTML = `
-     <img class="h-[37vh] w-full object-cover rounded-[5px]" src="${
-       news.picUrl
-     }" alt="${news.title}">
-     <p class="font-[500] text-[15px]">${news.shortDescription}</p>
-     <p class="text-[12px] font-[400]">${news.user} - ${new Date(
+            <img class="h-[37vh] w-full object-cover rounded-[5px]" src="${
+              news.picUrl
+            }" alt="${news.title}">
+            <p class="font-[500] text-[15px]">${news.shortDescription}</p>
+            <p class="text-[12px] font-[400]">${news.user} - ${new Date(
             news.datePosted
           ).toDateString()}</p>
   `;
@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
           items.addEventListener("click", () => {
             const slug = items.getAttribute("data-slug");
             if (slug) {
-              window.location.href = `../detail/technologydetail.html?id=${slug}`;
+              window.location.href = `../detail/detail.html?id=${news.slug}`;
             }
           });
           technologyContainer.appendChild(items);
-          console.log(items);
+        
         });
       };
 

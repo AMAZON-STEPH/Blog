@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll("main section");
   const uploadForm = document.getElementById("uploadForm");
   const uploadMsg = document.getElementById("uploadMsg");
+  const img = document.getElementById("imageUrl")
+  const sidebar = document.getElementById("sidebar")
+  const newpost = document.getElementById("newPost")
+  const preview = document.getElementById("preview")
 
    const {getCookie} = cookies();
 
@@ -22,18 +26,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   menuItems.forEach((item) => {
     item.addEventListener("click", () => {
+
       const target = item.getAttribute("data-section");
 
       sections.forEach((section) => section.classList.add("hidden"));
-
+      
       document.getElementById(target).classList.remove("hidden");
+      
 
-      menuItems.forEach((i) => i.classList.remove("bg-white/10"));
+      menuItems.forEach(i => i.classList.remove("bg-white/10"));
       item.classList.add("bg-white/10");
+
+      sidebar.classList.add("-translate-x-full")
     });
   });
 
+    const toggleBtn = document.getElementById("toggleSidebar");
 
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("-translate-x-full");
+    });
+
+    const upload = document.getElementById("upload")
+    newpost.addEventListener("click", () => {
+       upload.classList.remove("hidden");
+       upload.scrollIntoView({behavior: "smooth", block: "start"});
+
+    });
   // const {getCookie} = cookies();
   // // Function to read cookie by name
   // function getCookie(name) {
@@ -47,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = document.getElementById("title").value.trim();
     const article = document.getElementById("article").value.trim();
     const category = document.getElementById("category").value.trim().toLowerCase();
-    const image = document.getElementById("imageUrl").value.trim();
+    const image = img.value.trim();
 
     // Validate all fields
     if (!title || !article || !category || !image) {

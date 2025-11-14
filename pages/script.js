@@ -1,7 +1,24 @@
 import{cookies} from "../Myjsfiles/cookie.js";
+import { Nav, date, exist, search } from "../Myjsfiles/nav.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+    Nav();
+    date();
+    exist();
+    search();
+
+  changeNews("world", "world-img", "world-desc");
+  changeNews("technology", "tech-img", "tech-desc");
+  changeNews("health", "health-img", "health-desc");
+  changeNews("sports", "sports-img", "sports-desc");
+
+  startLiveUpdates();
+
 async function changeNews(category, imgId, descId) {
+  const container = document.getElementById(`${category}-news`);
   const img = document.getElementById(imgId);
   const desc = document.getElementById(descId);
+
 
   try {
     const res = await fetch(
@@ -21,8 +38,8 @@ async function changeNews(category, imgId, descId) {
       img.src = item.picUrl || "./images/default.png";
       desc.textContent = item.shortDescription;
 
-    img.setAttribute("data-slug", item.slug);
-    img.setAttribute("data-category", category);
+      img.dataset.slug = item.slug;
+      img.dataset.category = category;
 
     index = (index + 1) % data.length;
     }
@@ -30,14 +47,14 @@ async function changeNews(category, imgId, descId) {
     showNext();
     setInterval(showNext,10000);
 
-    img.addEventListener("click", () => {
-      const slug = img.getAttribute("data-slug")
-      const cat = img.getAttribute("data-category")
-
-      if(slug && cat) {
-        window.location.href = `../detail/${cat}detail.html?id=${slug}`
+    container.addEventListener("click", () => {
+      console.log("nnn")
+      // const slug = img.getAttribute("data-slug");
+      const slug = img.dataset.slug;
+      if(slug) {
+        window.location.href = `../detail/detail.html?id=${slug}`
       }
-    })
+    });
 
   } catch (error) {
     console.error(`Error fetching ${category} news:`, error);
@@ -45,12 +62,9 @@ async function changeNews(category, imgId, descId) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  changeNews("world", "world-img", "world-desc");
-  changeNews("technology", "tech-img", "tech-desc");
-  changeNews("health", "health-img", "health-desc");
-  changeNews("sports", "sports-img", "sports-desc");
-});
+})
+
+
 
 async function startLiveUpdates() {
   try {
@@ -62,7 +76,6 @@ async function startLiveUpdates() {
 
     const data = await response.json();
     if (response.ok) {
-      console.log(data);
     }
     let currentIndex = 0;
 
@@ -148,9 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let data
     try {
-      const res = await fetch("https://newsapi-w6iw.onrender.com/api/auth/login", {
+       const res = await fetch("https://newsapi-w6iw.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ email: theemail, password: thepassword }),
       });
        console.log("Response status:", res.status);
@@ -159,13 +173,13 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Response:", data);
 
       if (!res.ok) {
-        direction.textContent = data.message || "Invalid email or password.";
+        direction.textContent = data.message || data.error || "Invalid email or password.";
         direction.classList.add("text-red-600");
         return;
       }
 
      const {setCookie} = cookies()
-     setCookie("authToken", data.token, 7);
+     setCookie("token", data.token, 7);
       localStorage.setItem("userEmail", theemail);
 
       direction.textContent = "Login successful! Redirecting...";
@@ -176,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1500);
 
     } catch (error) {
-      console.log("Login error", error);
+      console.log("Login error:", error);
       direction.textContent = "Network error. Try again.";
       direction.classList.add("text-red-600");
     }

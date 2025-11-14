@@ -97,7 +97,7 @@ export function similarnews() {
                 const slug = card.getAttribute("data-slug");
                  
                 if(slug){
-                  window.location.href = `../detail/${currentCategory}detail.html?id=${slug}`
+                  window.location.href = `../detail/detail.html?id=${news.slug}`
               }
                });
 
@@ -214,8 +214,6 @@ export function search() {
         )
         const raw = await res.json();
         const data = raw.filter((news) => news.title.toLowerCase().includes(query));
-
-        console.log(data)
   
         if (!data.length) {
           results.innerHTML = `<p class="text-gray-500">No results found.</p>`;
@@ -233,14 +231,16 @@ export function search() {
               <p class="text-[12px] text-gray-600">${news.shortDescription.slice(0, 50)}...</p>
             </div>
           `;
+             console.log(news);
              
           content.addEventListener("click", () => {
-            console.log(news)
-            const category = news.category || news.categories?.[0];
-            if(!category){
-              return;
-            }
-            window.location.href = `../detail/${category.toLowerCase()}detail.html?id=${news.slug}`
+            // const category = news.category || news.categories?.[0];
+            // console.log(category)
+            // if(!category){
+            //   return;
+            // }
+
+            window.location.href = `../detail/detail.html?id=${news.slug}`
           });
 
           results.appendChild(content);

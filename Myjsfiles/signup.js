@@ -48,7 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       console.log(res,"here res");
 
-      
+      const data = await res.json();
+      direction.textContent = data.error || data.success;
+      direction.classList.add(`${data.error? "text-red-600" : "text-green-600"}`);
+      console.log("Raw response:", res);
       
       if (!res.ok) {
         direction.textContent = "Failed to sign up.";
@@ -56,18 +59,20 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       
-      
-      const data = await res.json();
-      direction.textContent = data.error || data.success;
-      direction.classList.add(`${data.error? "text-red-600" : "text-green-600"}`);
-      console.log("Raw response:", res);
-      
-      
+
+      const { setCookie } = cookies();
+        setCookie("authToken", data.token, 7);
+        setCookie("userEmail", emailValue, 7);
+
+         direction.classList.remove("text-red-600");
+         direction.textContent = "Signup successful! Redirecting...";
+          direction.classList.add("text-green-600");
+
     
-      // setTimeout(
-      //   () => (window.location.href = "../pages/dashboard.html"),
-      //   1500
-      // );   
+      setTimeout(
+        () => (window.location.href = "../pages/dashboard.html"),
+        1500
+      );   
 
       // document.cookie = `authToken=${data.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
       // document.cookie = `userEmail=${emailValue}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;

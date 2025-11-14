@@ -1,8 +1,10 @@
-import { Nav, date } from "../Myjsfiles/nav.js";
+import { Nav, date,exist, search } from "../Myjsfiles/nav.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  Nav();
-  date();
+    Nav();
+    date();
+    exist();
+    search();
 
   fetch("https://newsapi-w6iw.onrender.com/api/news/category/sports")
     .then((fullfilled) => fullfilled.json())
@@ -41,11 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
           items.addEventListener("click", () => {
             const slug = items.getAttribute("data-slug");
             if (slug) {
-              window.location.href = `../detail/sportsdetail.html?id=${slug}`;
+              window.location.href = `../detail/detail.html?id=${news.slug}`;
             }
           });
          sportscontainer.appendChild(items);
-          console.log(items);
+        
         });
       };
 
