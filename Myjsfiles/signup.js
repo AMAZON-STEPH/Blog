@@ -74,15 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
         1500
       );   
 
-      // document.cookie = `authToken=${data.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
-      // document.cookie = `userEmail=${emailValue}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
-
-    //  cookies("authToken", data.token, 7);
-    //   cookies("userEmail", emailValue, 7);
-
-      // direction.textContent = "Signup successful! You can now login.";
-      // direction.classList.remove("text-red-600");
-      // 
     } catch (err) {
       console.error("Signup error:", err);
       direction.textContent = "Network error. Try again.";

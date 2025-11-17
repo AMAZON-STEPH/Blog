@@ -48,8 +48,6 @@ async function changeNews(category, imgId, descId) {
     setInterval(showNext,10000);
 
     container.addEventListener("click", () => {
-      console.log("nnn")
-      // const slug = img.getAttribute("data-slug");
       const slug = img.dataset.slug;
       if(slug) {
         window.location.href = `../detail/detail.html?id=${slug}`
@@ -143,6 +141,12 @@ document.addEventListener("DOMContentLoaded", () => {
     email.value = savedEmail;
   }
 
+  function decodeToken(token) {
+  const payload = token.split(".")[1];
+  return JSON.parse(atob(payload));
+}
+
+
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -178,9 +182,25 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      console.log(data)
      const {setCookie} = cookies()
-     setCookie("token", data.token, 7);
-      localStorage.setItem("userEmail", theemail);
+
+      setCookie("authtoken", data.token, 7);
+
+      // Decode ID from token
+      const decoded = decodeToken(data.token);
+
+      // Save ID from the token
+      setCookie("userId", decoded.id, 7);
+
+      // Email comes from API
+      setCookie("userEmail", data.user.email, 7);
+
+      // Name does not exist in API, so create a default
+      setCookie("userName", data.user.email.splice(0,5), 7);
+
+
+      localStorage.setItem("userEmail", data.user.email);
 
       direction.textContent = "Login successful! Redirecting...";
       direction.classList.add("text-green-600");

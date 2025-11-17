@@ -1,133 +1,173 @@
- import { cookies } from "../Myjsfiles/cookie.js";
+import { cookies } from "../Myjsfiles/cookie.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-
+document.addEventListener("DOMContentLoaded", async () => {
   const menuItems = document.querySelectorAll(".menu-item");
   const sections = document.querySelectorAll("main section");
   const uploadForm = document.getElementById("uploadForm");
   const uploadMsg = document.getElementById("uploadMsg");
-  const img = document.getElementById("imageUrl")
-  const sidebar = document.getElementById("sidebar")
-  const newpost = document.getElementById("newPost")
-  const preview = document.getElementById("preview")
+  const img = document.getElementById("imageUrl");
+  const sidebar = document.getElementById("sidebar");
+  const newpost = document.getElementById("Recentpost");
+  const preview = document.getElementById("preview");
+  const categorySelector = document.getElementById("category");
+  const Recentposts = document.getElementById("Recentposts");
 
-   const {getCookie} = cookies();
+  const { getCookie } = cookies();
+  const token = getCookie("authtoken");
 
-    const token = getCookie("authToken");
+  if (!token) {
+    uploadMsg.textContent = "You are not logged in. Redirecting to login...";
+    uploadMsg.classList.add("text-red-600");
+    setTimeout(() => (window.location.href = "/index.html"), 1000);
+    return;
+  }
 
-    if (!token) {
-      uploadMsg.textContent = "You are not logged in. Redirecting to login...";
-      uploadMsg.classList.remove("text-green-600");
-      uploadMsg.classList.add("text-red-600");
-      setTimeout(() => window.location.href = "/index.html", 1000);
-      return;
-    }
-     console.log("Authenticated user:", getCookie("userEmail"));
+  console.log("Authenticated user:", getCookie("userEmail"));
 
   menuItems.forEach((item) => {
     item.addEventListener("click", () => {
-
       const target = item.getAttribute("data-section");
 
       sections.forEach((section) => section.classList.add("hidden"));
-      
       document.getElementById(target).classList.remove("hidden");
-      
 
-      menuItems.forEach(i => i.classList.remove("bg-white/10"));
+      menuItems.forEach((i) => i.classList.remove("bg-white/10"));
       item.classList.add("bg-white/10");
 
-      sidebar.classList.add("-translate-x-full")
+      sidebar.classList.add("-translate-x-full");
     });
   });
 
-    const toggleBtn = document.getElementById("toggleSidebar");
+  document.getElementById("toggleSidebar").addEventListener("click", () => {
+    sidebar.classList.toggle("-translate-x-full");
+  });
 
-    toggleBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("-translate-x-full");
+  document.getElementById("newPost").addEventListener("click", () => {
+    const upload = document.getElementById("upload");
+    upload.classList.remove("hidden");
+    upload.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  try {
+    const res = await fetch("https://newsapi-w6iw.onrender.com/api/categories");
+    const data = await res.json();
+
+    categorySelector.innerHTML = `<option value="" disabled selected>Select category</option>`;
+    data.forEach((categ) => {
+      const option = document.createElement("option");
+      option.value = categ.name;
+      option.textContent = categ.name;
+      categorySelector.appendChild(option);
     });
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+  }
 
-    const upload = document.getElementById("upload")
-    newpost.addEventListener("click", () => {
-       upload.classList.remove("hidden");
-       upload.scrollIntoView({behavior: "smooth", block: "start"});
+  img.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "block";
+    }
+  });
 
-    });
-  // const {getCookie} = cookies();
-  // // Function to read cookie by name
-  // function getCookie(name) {
-  //   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-  //   return match ? match[2] : null;
-  // }
+  async function uploadToCloudinary(file) {
+    const url = `https://api.cloudinary.com/v1_1/di9adjiow/upload`;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "unsigned");
+    formData.append("cloud_name", "di9adjiow");
+
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Cloudinary error:", data);
+        throw new Error(data.error?.message || "Cloudinary upload failed");
+      }
+
+      return data.secure_url;
+    } catch (err) {
+      console.error("Cloudinary error:", err);
+      throw err;
+    }
+  }
 
   uploadForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const title = document.getElementById("title").value.trim();
     const article = document.getElementById("article").value.trim();
-    const category = document.getElementById("category").value.trim().toLowerCase();
-    const image = img.value.trim();
+    const category = categorySelector.value;
+    const file = img.files[0];
 
-    // Validate all fields
-    if (!title || !article || !category || !image) {
+    if (!title || !article || !category || !file) {
       uploadMsg.textContent = "Please fill out all fields.";
-      uploadMsg.classList.remove("text-green-600");
       uploadMsg.classList.add("text-red-600");
       return;
     }
 
-    const payload = {
-      title,
-      shortDescription: article.length > 100 ? article.slice(0, 100) + "..." : article,
-      content: article,
-      category,
-      picUrl: image,
-      isTrending: true,
-      timetoread: "5 min",
-      datePosted: new Date().toISOString(),
-    };
-
-    // console.log("Token:", token);
-    console.log("Payload:", payload);
-
     try {
+      const picUrl = await uploadToCloudinary(file);
+
+      const newsData = {
+        id: Date.now().toString(),
+        title,
+        shortDescription:
+          article.length > 100 ? article.slice(0, 100) + "..." : article,
+        content: article,
+        category,
+        picUrl,
+        timetoread: "5 min",
+        datePosted: new Date().toISOString(),
+        isTrending: true,
+        isLiveUpdate: false,
+        user: {
+          _id: getCookie("userId"),
+          email: getCookie("userEmail"),
+          name: getCookie("userName"),
+        },
+      };
+  
       const res = await fetch("https://newsapi-w6iw.onrender.com/api/news", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(newsData),
       });
+
+      const data = await res.json();
 
       if (res.status === 401) {
         uploadMsg.textContent = "Unauthorized. Please login again.";
-        uploadMsg.classList.remove("text-green-600");
         uploadMsg.classList.add("text-red-600");
         setTimeout(() => (window.location.href = "../index.html"), 1500);
         return;
       }
 
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => null);
-        uploadMsg.textContent = errorData?.message || "Failed to upload news. Server error.";
-        uploadMsg.classList.remove("text-green-600");
+      if (!res.ok){
+        console.error("Backend error:", data);
+        uploadMsg.textContent = data.error || "Failed to upload news";
         uploadMsg.classList.add("text-red-600");
-        console.error("Upload failed:", res, errorData);
         return;
       }
 
-      const data = await res.json();
-      console.log("News uploaded successfully:", data);
       uploadMsg.textContent = "News uploaded successfully!";
-      uploadMsg.classList.remove("text-red-600");
       uploadMsg.classList.add("text-green-600");
+      preview.style.display = "none";
       uploadForm.reset();
     } catch (err) {
-      console.error("Network error:", err);
-      uploadMsg.textContent = "Network error. Try again.";
-      uploadMsg.classList.remove("text-green-600");
-      uploadMsg.classList.add("text-red-700");
+      console.error("Upload failed:", err);
+      uploadMsg.textContent = "Network error";
+      uploadMsg.classList.add("text-red-600");
     }
   });
 });

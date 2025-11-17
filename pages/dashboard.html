@@ -76,7 +76,7 @@
        </div>
 
        <div class="flex flex-col flex-wrap gap-1 w-full shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] p-2 rounded-lg">
-        <h3 class="font-bold text-[20px] tracking-wide">Recent Posts</h3>
+        <h3 class="font-bold text-[20px] tracking-wide" id="Recentposts">Recent Posts</h3>
 
         <div class="flex flex-col lg:flex-row lg:justify-evenly gap-2">
 
@@ -116,14 +116,19 @@
         <form id="uploadForm" class="flex flex-col gap-4">
           <input type="text" name="title" placeholder="Post title" class="border p-2 rounded-lg" id="title">
 
-          <input type="text" id="category" placeholder="category" class="border p-2 rounded-lg" required>
+          <select id="category" class="border py-2 px-6 rounded-lg" required>
+          </select>
 
-          <input type="file" name="imageUrl" id="imageUrl" placeholder="image" class="border p-2 rounded-lg" accept="image/*,.pdf,.doc,.docx,.txt">
-          <img src="" alt="" id="preview" style="max-width:200px; display:none; margin-top:10px;">
+          <label for="imageUrl" class="flex items-center gap-2 bg-black text-white py-2 px-4 rounded text-[18px] font-[400] transition-all duration-300 hover:bg-gray-800 active:scale-90 cursor-pointer w-max">
+            <i class="far fa-image"></i>
+              photos</label>
+
+          <input type="file" name="imageUrl" id="imageUrl" placeholder="image" class="hidden" accept="image/*,.pdf,.doc,.docx,.txt">
+          <img src="" alt="" id="preview" class="w-[200px] hidden mt-[10px]">
 
           <textarea name="article" id="article" placeholder="what is happening ..." class="w-full h-[200px] resize-none border-2 border-red-400 rounded-lg p-3 text-[16px] outline-none focus:border-red-600 placeholder:text-gray-500"></textarea>
 
-          <button type="b" class="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition active:scale-90">Upload</button>
+          <button type="submit" class="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition active:scale-90">Upload</button>
        </form>
          <p id="uploadMsg" class="text-center text-sm mt-2"></p>
        </section>
