@@ -128,6 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         datePosted: new Date().toISOString(),
         isTrending: true,
         isLiveUpdate: false,
+        slug: title.toLowerCase().replace(/\s+/g, "-"),
         user: {
           _id: getCookie("userId"),
           email: getCookie("userEmail"),
@@ -164,10 +165,66 @@ document.addEventListener("DOMContentLoaded", async () => {
       uploadMsg.classList.add("text-green-600");
       preview.style.display = "none";
       uploadForm.reset();
+
+      console.log("SERVER RESPONSE", data);
+
     } catch (err) {
       console.error("Upload failed:", err);
       uploadMsg.textContent = "Network error";
       uploadMsg.classList.add("text-red-600");
     }
   });
+
+
+async function loadRecentPosts(categoryName) {
+  try {
+    const res = await fetch("https://newsapi-w6iw.onrender.com/api/news/category");
+
+
+     if (!res.ok) {
+      throw new Error(`Server returned ${res.status}`);
+    }
+
+    const posts = await res.json();
+
+    if (!allPosts || allPosts.length === 0) {
+      Recentposts.innerHTML = "<p>No recent posts available.</p>";
+      return;
+    }
+
+     const sortedPosts = posts.sort(
+      (a, b) => new Date(b.datePosted) - new Date(a.datePosted)
+    );
+    const recentPost = sortedPosts[0];
+
+    Recentposts.innerHTML = "";
+
+    recentPost.forEach(post => {
+      const div = document.createElement("div");
+
+      div.className =
+        "flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full";
+
+      div.innerHTML = `
+        <h2 class="font-[700] tracking-wide text-[18px] text-red-700">${post.title}
+        </h2>
+        <p class="text-[15px]">${post.category}</p>
+        <p class="text-[14px] text-gray-600">${new Date(post.datePosted).toDateString()}</p>
+      `;
+
+      div.addEventListener("click", () => {
+        window.location.href = `../pages/detail.html?id=${post.slug}`;
+      });
+
+      Recentposts.appendChild(div);
+    });
+  } catch (err) {
+    console.error("Failed to load recent posts:", err);
+    Recentposts.classList.add("text-red-600", "font-[400]")
+    Recentposts.innerHTML= `Failed to load recent posts`;
+  }
+}
+
+loadRecentPosts();
+
 });

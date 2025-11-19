@@ -1,4 +1,4 @@
-import { Nav, date, similarnews, detailed, exist, search } from '../Myjsfiles/nav.js';
+import { Nav, date, similarnews, detailed, exist, search } from './nav.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   Nav();

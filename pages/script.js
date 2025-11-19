@@ -129,6 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === loginModal) loginModal.classList.add("hidden");
   });
 
+  loginForm.reset()
+
   showPasswordBtn.addEventListener("click", () => {
     const type = password.type === "password" ? "text" : "password";
     password.type = type;
@@ -197,13 +199,14 @@ document.addEventListener("DOMContentLoaded", () => {
       setCookie("userEmail", data.user.email, 7);
 
       // Name does not exist in API, so create a default
-      setCookie("userName", data.user.email.splice(0,5), 7);
+      setCookie("userName", data.user.email.split(0,5),[0], 7);
 
 
       localStorage.setItem("userEmail", data.user.email);
 
       direction.textContent = "Login successful! Redirecting...";
       direction.classList.add("text-green-600");
+      
 
       setTimeout(() => {
         window.location.href = "../pages/dashboard.html";

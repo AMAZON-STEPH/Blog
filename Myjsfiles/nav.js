@@ -97,7 +97,7 @@ export function similarnews() {
                 const slug = card.getAttribute("data-slug");
                  
                 if(slug){
-                  window.location.href = `../detail/detail.html?id=${news.slug}`
+                  window.location.href = `../pages/detail.html?id=${news.slug}`
               }
                });
 
@@ -133,6 +133,7 @@ const params = new URLSearchParams(window.location.search);
 
   fetch(`https://newsapi-w6iw.onrender.com/api/news/newsdetail/${slug}`)
     .then(res => {
+     
       if (!res.ok) throw new Error("Failed to fetch news details");
       return res.json();
       
@@ -143,7 +144,7 @@ const params = new URLSearchParams(window.location.search);
           <div class="flex items-center gap-3 border-t border-b border-gray-300 py-2">
             <i class="far fa-user text-[20px] bg-gray-200 rounded-full p-2"></i>
             <div>
-              <h3 class="font-[600] text-[16px]">${data.user || "Unknown Reporter"}</h3>
+              <h3 class="font-[600] text-[16px]">${data.user?.name || "Anoynmous"}</h3>
               <p class="text-[13px] text-gray-600 flex items-center gap-1">
                 <i class="far fa-calendar-days"></i>
                 ${new Date(data.datePosted).toDateString()}
@@ -151,7 +152,7 @@ const params = new URLSearchParams(window.location.search);
             </div>
           </div>
           <div class="flex flex-col gap-4">
-            <h1 class="text-[26px] lg:text-[32px] font-[700]">${data.title}</h1>
+            <h2 class="text-[26px] lg:text-[32px] font-[700]">${data.title}</h2>
             <img src="${data.picUrl}" alt="${data.title}" class="w-full rounded-[8px] shadow-md">
             <p class="text-[16px] leading-7">${data.content}</p>
           </div>
@@ -234,13 +235,8 @@ export function search() {
              console.log(news);
              
           content.addEventListener("click", () => {
-            // const category = news.category || news.categories?.[0];
-            // console.log(category)
-            // if(!category){
-            //   return;
-            // }
-
-            window.location.href = `../detail/detail.html?id=${news.slug}`
+           
+            window.location.href = `../pages/detail.html?id=${news.slug}`
           });
 
           results.appendChild(content);
