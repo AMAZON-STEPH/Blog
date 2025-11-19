@@ -50,7 +50,7 @@ async function changeNews(category, imgId, descId) {
     container.addEventListener("click", () => {
       const slug = img.dataset.slug;
       if(slug) {
-        window.location.href = `../detail/detail.html?id=${slug}`
+        window.location.href = `../pages/detail.html?id=${slug}`
       }
     });
 

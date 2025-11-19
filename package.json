@@ -18,6 +18,7 @@
     "baseline-browser-mapping": "^2.8.12",
     "browserslist": "^4.26.3",
     "caniuse-lite": "^1.0.30001748",
+    "cors": "^2.8.5",
     "electron-to-chromium": "^1.5.232",
     "escalade": "^3.2.0",
     "fraction.js": "^4.3.7",
@@ -31,4 +32,3 @@
   },
   "description": ""
 }
-
