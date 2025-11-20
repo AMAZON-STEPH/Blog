@@ -1,11 +1,7 @@
 import { Nav, date, exist, search } from "../Myjsfiles/nav.js";
+import { cookies } from "../Myjsfiles/cookie.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  Nav();
-  date();
-  exist();
-  search();
-
   const params = new URLSearchParams(window.location.search);
   const categoryName = params.get("name");
 
@@ -36,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const item = document.createElement("div");
         item.classList.add("flex", "flex-col", "gap-2", "h-full");
         item.setAttribute("data-slug", news.slug || news.id);
-
+        // console.log(news)
         item.innerHTML = `
         <div class="card cursor-pointer">
           <img class="h-[37vh] w-full object-cover rounded-[5px]" src="${
@@ -82,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const dropdown = item.querySelector(".dropdown");
         const closeModal = item.querySelector(".close-modal");
         const deleteBtn = dropdown.querySelector(".delete-btn");
-        const option = item.querySelector(".option");
+        // const option = item.querySelector(".option");
 
         menuBtn.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -109,13 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
           dialog.className =
             " fixed inset-0 bg-black/50 flex justify-center items-center z-50";
           dialog.innerHTML = `
-          <div class="flex flex-col w-[60%] lg:w-[60%] h-[35vh] rounded-[5px] justify-center gap-2 bg-white p-5 relative">
-            <h3>Do you want to delete this post? This action cannot be undone.</h3>
+          <div class="flex flex-col w-[60%] lg:w-[60%] h-[30vh] rounded-[5px] justify-center gap-2 bg-white p-5 relative">
+            <h3>Do you want to delete this post</h3>
             <div class="flex justify-end gap-3 mt-4">
-              <button class="cancel-btn px-4 py-2 rounded bg-gray-200 hover:bg-gray-500 active:scale-110 transition-all">Cancel</button>
-              <button class="confirm-delete-btn px-4 py-2 rounded bg-red-600 text-white hover:bg-red-600 active:scale-110 transition-all">Delete</button>
+              <button class="cancel-btn px-4 py-1 rounded bg-gray-200 hover:bg-gray-500 active:scale-110 transition-all">Cancel</button>
+              <button class="confirm-delete-btn px-4 py-1 rounded bg-red-600 text-white hover:bg-red-600/80 active:scale-110 transition-all">Delete</button>
             </div>
-            <i class="fas fa-remove absolute top-3 right-3 text-gray-600 hover:bg-gray-200 p-2 rounded-full cursor-pointer close-modal"></i>
+            <i class="fas fa-remove absolute top-3 right-3 hover:bg-gray-200 p-2 rounded-full cursor-pointer close-modal font-bold active:scale-110 transition-all"></i>
             </div>
           `;
           document.body.appendChild(dialog);
@@ -128,39 +124,47 @@ document.addEventListener("DOMContentLoaded", () => {
           closeModal.addEventListener("click", () => dialog.remove());
 
           confirmDeleteBtn.addEventListener("click", async () => {
-            const id = news.id;
-            const token = localStorage.getItem("token");
+           const id = news.id || news._id || news.slug;
+
+            const { getCookie } = cookies();
+            const token = localStorage.getItem("token") || getCookie("token");
+            console.log(news._id)
+            console.log("TOKEN:", token);
+
              if (!token) {
                 console.log(token);
                 return;
               }
-            // 
        
               const res = await fetch(`https://newsapi-w6iw.onrender.com/api/news/${id}`, {
                   method: "DELETE",
                   headers: {"Authorization": `Bearer ${token}`, "accept": "*/*",}
                 });
 
-              console.log(res)
+              console.log("hello",res.status)
               // console.log("Trying to delete id:", news._id);
 
 
              if (res.status === 204) {
                 item.remove();              
                 dropdown.remove(); 
+                dialog.remove();
               } else if (res.status === 403) {
                 alert("You are not authorized to delete this post.");
+                  dialog.remove();
               } else if (res.status === 404) {
                 alert("Post not found.");
+                  dialog.remove();
               } else {
-                alert("Server error occurred.");
+                alert("Internal server error");
+                  dialog.remove();
               }
             });
           });
 
         // Edit action
         dropdown.querySelector(".edit-btn").addEventListener("click", () => {
-          alert("Edit clicked");
+          window.location.href = `../pages/dashboard.html?editId=${news._id}`;
         });
 
         newsContainer.appendChild(item);

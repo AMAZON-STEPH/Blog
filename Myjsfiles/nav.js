@@ -1,14 +1,21 @@
 export function Nav() {
   const navLinks = document.querySelectorAll("ul li a");
-  const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+  // const currentPage = window.location.pathname.split("/").pop().toLowerCase();
 
   const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get("category");
+  const category = urlParams.get("name");
 
   navLinks.forEach((page) => {
-    const href = page.getAttribute("href").split("/").pop().toLowerCase();
+       const href = page.getAttribute("href").split("/").pop().split("?")[0].toLowerCase();
 
-    if (href === currentPage || href.includes(category)) {
+    page.classList.remove("text-red-600", "font-bold");
+
+    if (href === "index.html" && window.location.pathname.split("/").pop().toLowerCase() === "index.html") {
+      link.classList.add("text-red-600", "font-bold");
+      return;
+    }
+
+     if (category && page.getAttribute("href").toLowerCase().includes(category)) {
       page.classList.add("text-red-600", "font-bold");
     }
   });
@@ -59,7 +66,7 @@ export function similarnews() {
    fetch(`https://newsapi-w6iw.onrender.com/api/news/newsdetail/${currentslug}`)
    .then((result) => result.json())
    .then((currentNews) => {
-    const currentCategory = currentNews.category?.toLowerCase();
+    const currentCategory = currentNews.category?.toLowerCase() || null;
     if(!currentCategory){
       thecontent.innerHTML = '<p class="text-[15px] text-gray-700">No category found for this article</p>'
       return;
@@ -68,7 +75,7 @@ export function similarnews() {
     fetch(`https://newsapi-w6iw.onrender.com/api/news/category/${currentCategory}`)
     .then((res) => res.json())
     .then((thenews) => {
-      const relatedContent = thenews.filter((sm) => sm.slug !== currentslug).slice(0,3)
+      const relatedContent = thenews.filter(sm => sm.slug !== currentslug).slice(0,3)
 
       if (relatedContent.length === 0) {
             thecontent.innerHTML = `<p class="text-gray-600 text-center text-[14px] py-3">No similar news found.</p>`;
@@ -206,6 +213,7 @@ export function search() {
 
       if (!query) {
         results.innerHTML = "";
+        console.log("hello")
         return;
       }
 

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     search();
 
   changeNews("world", "world-img", "world-desc");
-  changeNews("technology", "tech-img", "tech-desc");
+  changeNews("technology", "technology-img", "technology-desc");
   changeNews("health", "health-img", "health-desc");
   changeNews("sports", "sports-img", "sports-desc");
 
@@ -61,7 +61,6 @@ async function changeNews(category, imgId, descId) {
 }
 
 })
-
 
 
 async function startLiveUpdates() {
@@ -138,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showPasswordBtn.classList.toggle("fa-eye-slash");
   });
 
- const savedEmail = localStorage.getItem("userEmail");
+const savedEmail = localStorage.getItem("userEmail");
   if (savedEmail) {
     email.value = savedEmail;
   }
@@ -187,7 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(data)
      const {setCookie} = cookies()
 
-      setCookie("authtoken", data.token, 7);
+      setCookie("token", data.token, 7);
+
+      localStorage.setItem("token", data.token);
 
       // Decode ID from token
       const decoded = decodeToken(data.token);
@@ -199,8 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setCookie("userEmail", data.user.email, 7);
 
       // Name does not exist in API, so create a default
-      setCookie("userName", data.user.email.split(0,5),[0], 7);
-
+      setCookie("userName", data.user.email.split("@")[0], 7);
 
       localStorage.setItem("userEmail", data.user.email);
 

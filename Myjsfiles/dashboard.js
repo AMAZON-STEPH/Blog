@@ -1,4 +1,6 @@
 import { cookies } from "../Myjsfiles/cookie.js";
+const params = new URLSearchParams(window.location.search);
+const editId = params.get("editId"); 
 
 document.addEventListener("DOMContentLoaded", async () => {
   const menuItems = document.querySelectorAll(".menu-item");
@@ -213,7 +215,7 @@ async function loadRecentPosts(categoryName) {
       `;
 
       div.addEventListener("click", () => {
-        window.location.href = `../pages/detail.html?id=${post.slug}`;
+        window.location.href = `../pages/detail.html?id=${post._id}`;
       });
 
       Recentposts.appendChild(div);
