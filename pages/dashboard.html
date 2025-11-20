@@ -13,7 +13,7 @@
 
     <header id="sidebar" class="bg-gradient-to-tr from-gray-950 via-gray-900 to-gray-950 h-screen w-[40%] sm:w-[50%] lg:w-[20%] fixed lg:static top-0 left-0 z-50 p-4 flex flex-col gap-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out text-white">
     
-    <h2 class="text-[25px] font-bold tracking-wide">Admin Dashboard</h2>
+    <h2 class="text-[25px] font-bold tracking-wide mt-[2em]">Admin Dashboard</h2>
     
     <div class="flex flex-col gap-2">
       <div data-section="home" class="menu-item flex items-center gap-2 bg-white/10 p-2 rounded-lg transition-all duration-300 active:scale-90 cursor-pointer">
@@ -55,7 +55,7 @@
 
     <section id="home" class="flex flex-col gap-5 lg:gap-[4em] justify-center p-2">
        <div class="flex flex-col lg:flex-row gap-2 lg:gap-0 lg:justify-around">
-        <h3 class="text-[26px] lg:text-[29px] font-[800] tracking-wide">Welcome Back <i class="fas fa-hand text-yellow-400"></i></h3>
+        <h3 class="text-[26px] lg:text-[29px] font-[800] tracking-wide mt-[2em]">Welcome Back <i class="fas fa-hand text-yellow-400"></i></h3>
         <button class="bg-black text-white py-3 px-8 rounded-tl-[20px] rounded-br-[10px] text-[18px] font-[500] transition-all duration-300 hover:bg-gray-800 active:scale-90" id="newPost">+ New Post</button>
        </div>
 
@@ -63,7 +63,7 @@
        <div class="flex flex-col lg:flex-row gap-3 justify-center lg:justify-evenly lg:h-[30vh]">
         <div class="p-3 flex flex-col gap-3 lg:gap-5 shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] rounded-lg lg:w-full ">
         <p class="text-[18px] font-[700]">Total posts</p>
-        <span class="font-[500]">79</span>
+        <span id="totalPosts" class="font-[500]"></span>
         </div>
         <div class="p-3 flex flex-col gap-1 shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] rounded-lg lg:w-full">
         <p class="text-[18px] font-[700]">Views</p>
@@ -74,33 +74,15 @@
         <span class="font-[500]">50</span>
         </div>
        </div>
-<!-- 
-       <div class="flex flex-col flex-wrap gap-1 w-full shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] p-2 rounded-lg">
-        <h3 class="font-bold text-[20px] tracking-wide" id="Recentposts">Recent Posts</h3>
-
-        <div class="flex flex-col lg:flex-row lg:justify-evenly gap-2">
-
-        <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full">
-          <h2 class="font-[700] tracking-wide text-[18px] text-red-700">Title</h2>
-          <p class="text-[15px]">news</p>
-        </div>
-      
-        <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full">
-          <h2 class="font-[700] tracking-wide text-[18px] text-red-700">Category</h2>
-          <p>Technology</p>
-        </div> -->
 
         <div class="flex flex-col flex-wrap gap-1 w-full shadow-[0px_0px_6px_0_rgba(0,0,0,0.2)] p-2 rounded-lg">
+         <div id="showRecents" class="flex justify-between px-2 items-center w-full"> 
         <h3 class="font-bold text-[20px] tracking-wide">Recent Posts</h3>
+        <i id="show" class="fas fa-chevron-right"></i>
+        </div>
 
-        <div id="Recentposts" class="flex flex-col gap-2"></div>
+        <div id="Recentposts" class="flex flex-col gap-2 hidden"></div>
       </div>
-
-
-        <!-- <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full">
-          <h2 class="font-[700] tracking-wide text-[18px] text-red-700">Date</h2>
-          <p>7 Nov</p>
-        </div> -->
 
         <div class="flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 w-full">
           <h2 class="font-[800] text-[17px]">Action</h2>
@@ -113,17 +95,18 @@
        </section>
       
        <section id="posts" class="hidden">
-         <h2 class="text-[26px] font-bold mb-4">All Posts</h2>
-         <p class="text-gray-600">Here ll see all uploaded posts.</p>
-
+         <h2 class="text-[26px] font-bold mt-[2em]">All Posts</h2>
+         <!-- <p class="text-gray-600"></p> -->
+          <div id="postsContainer" class="space-y-4"></div>
        </section>
 
        <section id="upload" class="hidden">
-         <h2 class="text-[25px] font-bold tracking-wide mb-4">Upload New Post</h2>
+         <h2 class="text-[25px] font-bold tracking-wide mt-[2em]">Upload New Post</h2>
         <form id="uploadForm" class="flex flex-col gap-4">
-          <input type="text" name="title" placeholder="Post title" class="border p-2 rounded-lg" id="title">
+          <input type="text" name="title" placeholder="Post title" class="border p-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-600 
+         transition duration-200" id="title">
 
-          <select id="category" class="border py-2 px-6 rounded-lg" required>
+          <select id="category" class="border py-2 px-6 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-600 transition duration-200" required>
           </select>
 
           <label for="imageUrl" class="flex items-center gap-2 bg-black text-white py-2 px-4 rounded text-[18px] font-[400] transition-all duration-300 hover:bg-gray-800 active:scale-90 cursor-pointer w-max">
@@ -133,6 +116,18 @@
           <input type="file" name="imageUrl" id="imageUrl" placeholder="image" class="hidden" accept="image/*,.pdf,.doc,.docx,.txt">
           <img src="" alt="" id="preview" class="w-[200px] hidden mt-[10px]">
 
+          <div class="flex gap-3 border items-center justify-between px-2 py-1">
+           <label for="timetoread" class="flex flex-col gap-2 text-[14px]"> <input type="text" name="timetoread" id="read" class="w-full px-1 py-1 rounded border border-green-400 bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-600 
+         transition duration-200" placeholder="Time to read">
+           </label>
+           <label for="trending"  class="flex flex-col gap-2">Trending
+           <input type="checkbox" name="trending" id="isTrending">
+           </label>
+           <label for="live" class="flex flex-col gap-2">Live
+           <input type="checkbox" name="live" id="isLive">
+           </label>
+           </div>
+
           <textarea name="article" id="article" placeholder="what is happening ..." class="w-full h-[200px] resize-none border-2 border-red-400 rounded-lg p-3 text-[16px] outline-none focus:border-red-600 placeholder:text-gray-500"></textarea>
 
           <button type="submit" class="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition active:scale-90">Upload</button>
@@ -140,19 +135,76 @@
          <p id="uploadMsg" class="text-center text-sm mt-2"></p>
        </section>
 
-        <section id="analytics" class="hidden">
-          <h2 class="text-[26px] font-bold mb-4">Analytics</h2>
-          <p class="text-gray-600">Coming soon...</p>
-        </section>
+       <section id="analytics" class="hidden">
+      <h2 class="text-[26px] font-bold mt-[2em]">Analytics</h2>
 
-        <section id="settings" class="hidden">
-          <h2 class="text-[26px] font-bold mb-4">Settings</h2>
-          <p class="text-gray-600">Update your account details here.</p>
-        </section>
+      <div class="flex flex-col gap-5 mt-5">
+
+        <div class="shadow p-4 rounded-lg flex justify-between items-center">
+          <p class="font-[500] text-[15px]">Total Posts</p>
+          <span id="totalPosts" class="font-[500]">0</span>
+        </div>
+
+        <div class="shadow p-4 rounded-lg flex justify-between items-center">
+          <p class="font-[500] text-[15px]">Trending Posts</p>
+          <span id="trendingPosts" class="font-[500]">0</span>
+        </div>
+
+        <div class="shadow p-4 rounded-lg">
+          <p class="font-[500] text-[15px]">Posts by Category</p>
+          <canvas id="postsChart" width="400" height="200"></canvas>
+        </div>
+
+      </div>
+    </section>
+
+      <section id="settings" class="hidden p-4">
+  <h2 class="text-[26px] font-bold mt-[2em]">Settings</h2>
+  <p class="text-gray-600 mb-4">Update your account details here.</p>
+
+  <!-- Update Account Info -->
+  <form id="accountForm" class="flex flex-col gap-3 mb-6">
+    <label>
+      Name:
+      <input type="text" id="userName" class="border p-2 rounded w-full" />
+    </label>
+    <label>
+      Email:
+      <input type="email" id="userEmail" class="border p-2 rounded w-full" />
+    </label>
+    <label>
+      Profile Picture:
+      <input type="file" id="profilePic" class="border p-2 rounded w-full" />
+    </label>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Update Info</button>
+    <p id="accountMsg"></p>
+  </form>
+
+  <!-- Change Password -->
+  <form id="passwordForm" class="flex flex-col gap-3">
+    <label>
+      Current Password:
+      <input type="password" id="currentPassword" class="border p-2 rounded w-full" />
+    </label>
+    <label>
+      New Password:
+      <input type="password" id="newPassword" class="border p-2 rounded w-full" />
+    </label>
+    <label>
+      Confirm New Password:
+      <input type="password" id="confirmPassword" class="border p-2 rounded w-full" />
+    </label>
+    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded">Change Password</button>
+    <p id="passwordMsg"></p>
+  </form>
+</section>
+
 
 
   </main>
- 
+ <script type="module" src="../Myjsfiles/posts.js"></script>
+ <script type="module" src="../Myjsfiles/setting.js"></script>
   <script type="module" src="../Myjsfiles/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

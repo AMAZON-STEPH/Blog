@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const item = document.createElement("div");
         item.classList.add("flex", "flex-col", "gap-2", "h-full");
         item.setAttribute("data-slug", news.slug || news.id);
-        // console.log(news)
+      
         item.innerHTML = `
         <div class="card cursor-pointer">
           <img class="h-[37vh] w-full object-cover rounded-[5px]" src="${

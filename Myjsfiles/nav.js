@@ -7,7 +7,7 @@ export function Nav() {
 
   navLinks.forEach((page) => {
        const href = page.getAttribute("href").split("/").pop().split("?")[0].toLowerCase();
-
+      
     page.classList.remove("text-red-600", "font-bold");
 
     if (href === "index.html" && window.location.pathname.split("/").pop().toLowerCase() === "index.html") {

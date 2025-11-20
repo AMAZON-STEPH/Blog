@@ -1,6 +1,6 @@
 import { cookies } from "../Myjsfiles/cookie.js";
 const params = new URLSearchParams(window.location.search);
-const editId = params.get("editId"); 
+const editId = params.get("editId");
 
 document.addEventListener("DOMContentLoaded", async () => {
   const menuItems = document.querySelectorAll(".menu-item");
@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const preview = document.getElementById("preview");
   const categorySelector = document.getElementById("category");
   const Recentposts = document.getElementById("Recentposts");
+  const isLive = document.getElementById("isLive");
+  const isTrending = document.getElementById("isTrending");
+  const read = document.getElementById("read");
+
+  isLive.addEventListener("change", (e) => console.log(isLive.checked));
 
   const { getCookie } = cookies();
   const token = getCookie("authtoken");
@@ -126,10 +131,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         content: article,
         category,
         picUrl,
-        timetoread: "5 min",
+        timetoread: `${read} min`,
         datePosted: new Date().toISOString(),
-        isTrending: true,
-        isLiveUpdate: false,
+        isTrending: `${isTrending}`,
+        isLiveUpdate: `${isLive}`,
         slug: title.toLowerCase().replace(/\s+/g, "-"),
         user: {
           _id: getCookie("userId"),
@@ -137,7 +142,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           name: getCookie("userName"),
         },
       };
-  
+
       const res = await fetch("https://newsapi-w6iw.onrender.com/api/news", {
         method: "POST",
         headers: {
@@ -156,7 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      if (!res.ok){
+      if (!res.ok) {
         console.error("Backend error:", data);
         uploadMsg.textContent = data.error || "Failed to upload news";
         uploadMsg.classList.add("text-red-600");
@@ -169,7 +174,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       uploadForm.reset();
 
       console.log("SERVER RESPONSE", data);
-
     } catch (err) {
       console.error("Upload failed:", err);
       uploadMsg.textContent = "Network error";
@@ -177,56 +181,74 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
+  
 
-async function loadRecentPosts(categoryName) {
+  async function loadRecentPosts() {
+    const show = document.getElementById("show")
+    const showRecents = document.getElementById("showRecents")
+
+    showRecents.addEventListener("click", async () => {
+      Recentposts.classList.toggle("hidden")
+      show.classList.toggle("fa-chevron-down")
+      show.classList.toggle("fa-chevron-right")
+
+      if (Recentposts.classList.contains("hidden")) return;
+             
   try {
-    const res = await fetch("https://newsapi-w6iw.onrender.com/api/news/category");
+    const res = await fetch("https://newsapi-w6iw.onrender.com/api/news/latest");
 
-
-     if (!res.ok) {
+    if (!res.ok) {
       throw new Error(`Server returned ${res.status}`);
     }
 
     const posts = await res.json();
 
-    if (!allPosts || allPosts.length === 0) {
+    if (!posts || posts.length === 0) {
       Recentposts.innerHTML = "<p>No recent posts available.</p>";
       return;
     }
 
-     const sortedPosts = posts.sort(
+    const sortedPosts = posts.sort(
       (a, b) => new Date(b.datePosted) - new Date(a.datePosted)
     );
-    const recentPost = sortedPosts[0];
+
+    const recentFive = sortedPosts.slice(0, 5);
 
     Recentposts.innerHTML = "";
 
-    recentPost.forEach(post => {
+    recentFive.forEach((post) => {
       const div = document.createElement("div");
 
       div.className =
         "flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full";
 
       div.innerHTML = `
-        <h2 class="font-[700] tracking-wide text-[18px] text-red-700">${post.title}
+        <h2 class="font-[500] tracking-wide text-[14px] text-red-700">
+          ${post.title}
         </h2>
         <p class="text-[15px]">${post.category}</p>
-        <p class="text-[14px] text-gray-600">${new Date(post.datePosted).toDateString()}</p>
+        <p class="text-[14px] text-gray-600">
+          ${new Date(post.datePosted).toDateString()}
+        </p>
       `;
 
       div.addEventListener("click", () => {
-        window.location.href = `../pages/detail.html?id=${post._id}`;
+        window.location.href = `../pages/detail.html?id=${post.slug}`;
       });
 
       Recentposts.appendChild(div);
     });
   } catch (err) {
     console.error("Failed to load recent posts:", err);
-    Recentposts.classList.add("text-red-600", "font-[400]")
-    Recentposts.innerHTML= `Failed to load recent posts`;
+    Recentposts.classList.add("text-red-600", "font-[400]");
+    Recentposts.innerHTML = `Failed to load recent posts`;
   }
+});
 }
 
 loadRecentPosts();
+
+
+
 
 });
