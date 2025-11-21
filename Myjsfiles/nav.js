@@ -26,8 +26,8 @@ export function date() {
   const currentDate = new Date();
 
   const formattedDate = currentDate.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
+    weekday: "short",
+    month: "short",
     day: "numeric",
     year: "numeric",
   });

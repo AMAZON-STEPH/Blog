@@ -15,7 +15,7 @@
 
     <div class="flex justify-between">
       <div class="flex gap-2 items-center">
-        <i class="fas fa-globe animate-spin"></i>
+        <i class="fas fa-globe animate-spin text-blue-950"></i>
         <p class="today"></p>
       </div>
       <div class="flex lg:gap-6 gap-3 items-center cursor-pointer">
@@ -122,21 +122,19 @@
       </div>
 
 
-  <div id="live-update" class="flex flex-col gap-5">
-    <img id="live-img" src="" alt="live update">
+  <div id="live-update" class="flex flex-col gap-5 items-center">
+    <img id="live-img" class="lg:h-[90vh] lg:w-[60em] rounded-[10px]" src="" alt="live update">
 
-    <div class="flex flex-col lg:flex-row gap-5 justify-between px-2">
+    <div class="flex flex-col gap-5 justify-between px-2 items-center">
       <div class="lg:w-[80%] flex flex-col gap-3">
-        <div>
-          <button id="live-category" class="border-2 border-black rounded-[10px] px-4 py-2 text-[15px]"></button>
-          <button id="live-author" class="border-2 border-black rounded-[10px] px-4 py-2 text-[15px]"></button>
+        <div class="flex justify-between">
+          <button id="live-category" class="border-2 border-black rounded-[10px] px-4 py-1 text-[13px]"></button>
+          <button id="live-author" class="border-2 border-black rounded-[10px] px-4 py-1 text-[13px]"></button>
         </div>
-        <p id="live-title" class="font-[600] text-[24px] lg:text-[30px]">
-  
-        </p>
-      </div>
+          <p id="live-title" class="font-[600] text-[20px] lg:text-[30px]"> </p>
+        </div>
 
-      <div class="flex w-full justify-between text-gray-600 font-[500] text-[12px]">
+      <div class="flex w-full justify-between text-gray-600 font-[500] text-[12px] items-center">
         <p id="live-date"></p>
         <p id="readArticle" class="flex items-center gap-2 text-green-700 font-[500] active:scale-110 transition duration-300 cursor-pointer hover:bg-gray-300 py-2 px-3 rounded-lg">
           Read Article <i class="fas fa-arrow-right"></i>
@@ -147,56 +145,17 @@
 
       </section>
 
-      <section class="flex flex-col gap-5">
-        <div class="flex justify-between border-b border-black py-2
-        ">
-          <h3 class="">LATEST NEWS</h3>
-          <p>VIEW ALL <i class="fas fa-arrow-right"></i></p>
-        </div>
+    <section class="flex flex-col gap-5 w-[100%]">
+  <div class="flex justify-between border-b border-black py-2">
+    <h3 class="font-bold">LATEST NEWS</h3>
+    <p class="text-sm">VIEW ALL <i class="fas fa-arrow-right"></i></p>
+  </div>
 
-        <div class="flex flex-col gap-5">
-          <div class="flex gap-5 flex-col lg:flex-row">
-          <img class="w-[60] lg:w-[40%] " src="./images/mosque.png" alt="">
-        <div class="flex flex-col gap-3">
-          <div class="flex gap-2">
-            <div class="flex flex-col">
-            <p class="font-[500]">The effects of geopolitical shifts on global security</p>
-            <p class="text-[12px] font-[400]">World News - Sep 9, 2024</p>
-            </div>
-            <img class=" w-[40%] rounded-[7px]" src="./images/mantalking.png" alt="">
-          </div>
-          <div class="flex gap-2">
-            <div class="flex flex-col">
-            <p class="font-[500]">Affect the integrity and future of professional sports</p>
-            <p class="text-[12px] font-[400]">Sports - Sep 9, 2024</p>
-            </div>
-            <img class=" w-[40%] rounded-[7px]" src="./images/entering taxi.png" alt="">
-          </div>
-        </div>
-        </div>
+  <div id="latestMain"></div>
 
-      <div class="flex justify-evenly gap-6 overflow-x-scroll">
-        <div class="flex flex-col gap-2 shrink-0 lg:shrink">
-           <img src="./images/containegooders.png" alt="">
-            <p class="font-[500] text-[15px]">Strategies for success in a competitive landscape</p>
-            <p class="text-[12px]">Business - Sep 9, 2025</p>
-        </div>
+  <div id="latestScroll" class="flex gap-4 overflow-x-auto pb-4"></div>
+</section>
 
-         <div class="flex flex-col gap-2 shrink-0 lg:shrink">
-           <img class="" src="./images/carmoving.png" alt="">
-            <p class="font-[500] text-[15px]">Innovation hubs are transforming traditional business models</p>
-            <p class="text-[12px]">Business - Sep 9, 2025</p>
-        </div>
-
-         <div class="flex flex-col gap-2 flex-shrink-0 lg:shrink">
-           <img src="./images/Background.png" alt="">
-            <p class="font-[500] text-[15px]">Tailoring treatments to individual genetic profiles</p>
-            <p class="text-[12px]">Business - Sep 9, 2025</p>
-        </div>
-
-      </div>
-      </div>
-    </section>
 
     <section class="flex flex-col gap-5">
      <div class="flex justify-between border-b border-black py-2">
@@ -346,6 +305,7 @@
     </div>
     </div>
   </footer>
+  <script src="./Myjsfiles/latest.js"></script>
    <script type="module" src="./pages/index.js"></script>
    <script type="module" src="./pages/script.js"></script>
 </body>

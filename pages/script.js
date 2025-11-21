@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     exist();
     search();
 
-  changeNews("world", "world-img", "world-desc");
+  changeNews("world news", "world-img", "world-desc");
   changeNews("technology", "technology-img", "technology-desc");
   changeNews("health", "health-img", "health-desc");
   changeNews("sports", "sports-img", "sports-desc");
@@ -22,8 +22,7 @@ async function changeNews(category, imgId, descId) {
 
   try {
     const res = await fetch(
-      // `https://newsapi-w6iw.onrender.com/api/news/trending/${category}`
-      `https://newsapi-w6iw.onrender.com/api/news/latest`
+      `https://newsapi-w6iw.onrender.com/api/news/trending/${category}`
     );
     const data = await res.json();
 
