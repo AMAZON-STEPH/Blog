@@ -84,10 +84,10 @@
 
     <section class="flex flex-col gap-4">
 
-      <div id="trending" class="flex flex-wrap lg:flex-nowrap gap-4 lg:justify-between items-center px-3">
+      <div id="trending" class="flex flex-wrap lg:grid lg:grid-cols-3 gap-4 lg:justify-between items-center px-3">
 
       <div class="flex gap-3" id="world-news">
-        <img id="world-img" class="rounded size-[40px]" src="" alt="worldtech">
+        <img id="world-img" class="rounded w-[30%] h-[7em]" src="" alt="worldtech">
         <div>
           <h3 class="font-[600]">WORLD NEWS</h3>
           <p id="world-desc"></p>
@@ -96,7 +96,7 @@
 
 
       <div class="flex gap-3" id="technology-news">
-        <img id="technology-img" src="" alt="techworld">
+        <img id="technology-img" src="" alt="techworld" class="rounded w-[30%] h-[7em]">
         <div>
           <h3 class="font-[600]">TECHNOLOGY</h3>
           <p id="technology-desc"></p>
@@ -104,7 +104,7 @@
       </div>
 
         <div class="flex gap-3" id="health-news">
-          <img id="health-img" src="" alt="healthworld">
+          <img id="health-img" src="" alt="healthworld" class="rounded w-[30%] h-[7em]">
           <div>
             <h3 class="font-[600]">HEALTH</h3>
             <p id="health-desc"></p>
@@ -112,7 +112,7 @@
         </div>
 
         <div class="flex gap-3" id="sports-news">
-          <img id="sports-img" src="" alt="sportsworld">
+          <img id="sports-img" src="" alt="sportsworld" class="rounded w-[30%] h-[7em]">
           <div>
             <h3 class="font-[600]">SPORTS</h3>
             <p id="sports-desc" class="text-[15px]"></p>
@@ -136,9 +136,9 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-1 text-[12px]">
+      <div class="flex w-full justify-between text-gray-600 font-[500] text-[12px]">
         <p id="live-date"></p>
-        <p class="flex items-center gap-2">
+        <p id="readArticle" class="flex items-center gap-2 text-green-700 font-[500] active:scale-110 transition duration-300 cursor-pointer hover:bg-gray-300 py-2 px-3 rounded-lg">
           Read Article <i class="fas fa-arrow-right"></i>
         </p>
       </div>

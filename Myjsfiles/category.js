@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
   `;
 
+  console.log(news)
         const card = item.querySelector(".card");
         card.addEventListener("click", () => {
           window.location.href = `../pages/detail.html?id=${

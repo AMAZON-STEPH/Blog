@@ -133,8 +133,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         picUrl,
         timetoread: `${read} min`,
         datePosted: new Date().toISOString(),
-        isTrending: `${isTrending}`,
-        isLiveUpdate: `${isLive}`,
+        isTrending: isTrending.checked,
+        isLiveUpdate: isLive.checked,
         slug: title.toLowerCase().replace(/\s+/g, "-"),
         user: {
           _id: getCookie("userId"),
@@ -181,48 +181,48 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  
-
   async function loadRecentPosts() {
-    const show = document.getElementById("show")
-    const showRecents = document.getElementById("showRecents")
+    const show = document.getElementById("show");
+    const showRecents = document.getElementById("showRecents");
 
     showRecents.addEventListener("click", async () => {
-      Recentposts.classList.toggle("hidden")
-      show.classList.toggle("fa-chevron-down")
-      show.classList.toggle("fa-chevron-right")
+      Recentposts.classList.toggle("hidden");
+      show.classList.toggle("fa-chevron-down");
+      show.classList.toggle("fa-chevron-right");
 
       if (Recentposts.classList.contains("hidden")) return;
-             
-  try {
-    const res = await fetch("https://newsapi-w6iw.onrender.com/api/news/latest");
 
-    if (!res.ok) {
-      throw new Error(`Server returned ${res.status}`);
-    }
+      try {
+        const res = await fetch(
+          "https://newsapi-w6iw.onrender.com/api/news/latest"
+        );
 
-    const posts = await res.json();
+        if (!res.ok) {
+          throw new Error(`Server returned ${res.status}`);
+        }
 
-    if (!posts || posts.length === 0) {
-      Recentposts.innerHTML = "<p>No recent posts available.</p>";
-      return;
-    }
+        const posts = await res.json();
 
-    const sortedPosts = posts.sort(
-      (a, b) => new Date(b.datePosted) - new Date(a.datePosted)
-    );
+        if (!posts || posts.length === 0) {
+          Recentposts.innerHTML = "<p>No recent posts available.</p>";
+          return;
+        }
 
-    const recentFive = sortedPosts.slice(0, 5);
+        const sortedPosts = posts.sort(
+          (a, b) => new Date(b.datePosted) - new Date(a.datePosted)
+        );
 
-    Recentposts.innerHTML = "";
+        const recentFive = sortedPosts.slice(0, 5);
 
-    recentFive.forEach((post) => {
-      const div = document.createElement("div");
+        Recentposts.innerHTML = "";
 
-      div.className =
-        "flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full";
+        recentFive.forEach((post) => {
+          const div = document.createElement("div");
 
-      div.innerHTML = `
+          div.className =
+            "flex flex-col gap-1 border border-gray-700 hover:bg-gray-200 px-4 py-2 hover:border-none rounded-br-[10px] rounded-tl-[10px] transition-all duration-300 active:scale-90 w-full";
+
+          div.innerHTML = `
         <h2 class="font-[500] tracking-wide text-[14px] text-red-700">
           ${post.title}
         </h2>
@@ -232,23 +232,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         </p>
       `;
 
-      div.addEventListener("click", () => {
-        window.location.href = `../pages/detail.html?id=${post.slug}`;
-      });
+          div.addEventListener("click", () => {
+            window.location.href = `../pages/detail.html?id=${post.slug}`;
+          });
 
-      Recentposts.appendChild(div);
+          Recentposts.appendChild(div);
+        });
+      } catch (err) {
+        console.error("Failed to load recent posts:", err);
+        Recentposts.classList.add("text-red-600", "font-[400]");
+        Recentposts.innerHTML = `Failed to load recent posts`;
+      }
     });
-  } catch (err) {
-    console.error("Failed to load recent posts:", err);
-    Recentposts.classList.add("text-red-600", "font-[400]");
-    Recentposts.innerHTML = `Failed to load recent posts`;
   }
-});
-}
 
-loadRecentPosts();
-
-
-
-
+  loadRecentPosts();
 });

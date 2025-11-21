@@ -22,7 +22,8 @@ async function changeNews(category, imgId, descId) {
 
   try {
     const res = await fetch(
-      `https://newsapi-w6iw.onrender.com/api/news/trending/${category}`
+      // `https://newsapi-w6iw.onrender.com/api/news/trending/${category}`
+      `https://newsapi-w6iw.onrender.com/api/news/latest`
     );
     const data = await res.json();
 
@@ -72,22 +73,38 @@ async function startLiveUpdates() {
     if (!response.ok) throw new Error("Failed to fetch live updates");
 
     const data = await response.json();
-    if (response.ok) {
+
+    // 🔥 Fix: No live posts available
+    if (!Array.isArray(data) || data.length === 0) {
+     const Live = document.getElementById("live-title")
+     Live.textContent = "No live updates available right now.";
+     Live.classList.add("text-gray-500", "text-[12px]", "animate-pulse")
+      return;
     }
+
     let currentIndex = 0;
 
     function showLiveItem(index) {
       const item = data[index];
 
-      document.getElementById("live-img").src = item.picUrl;
-      document.getElementById("live-img").alt = item.title;
+      document.getElementById("live-img").src =
+        item.picUrl || "./images/default.png";
+
+      document.getElementById("live-img").alt = item.title || "Live news";
       document.getElementById("live-category").textContent =
-        item.category.toUpperCase();
-      document.getElementById("live-author").textContent = item.user;
-      document.getElementById("live-title").textContent = item.title;
-      document.getElementById(
-        "live-date"
-      ).textContent = `${new Date().toLocaleDateString()} - 05 Minute`;
+        (item.category || "news").toUpperCase();
+      document.getElementById("live-author").textContent =
+        item.user || "Unknown";
+      document.getElementById("live-title").textContent =
+        item.title || "Untitled";
+
+      document.getElementById("live-date").textContent =
+        `${new Date().toLocaleDateString()}`;
+
+        const readArticle = document.getElementById("readArticle")
+        readArticle.addEventListener("click", () => {
+           window.location.href = `../pages/detail.html?id=${item.id}`
+        })
     }
 
     showLiveItem(currentIndex);
@@ -96,12 +113,14 @@ async function startLiveUpdates() {
       currentIndex = (currentIndex + 1) % data.length;
       showLiveItem(currentIndex);
     }, 8000);
+
   } catch (error) {
     console.error("Error fetching live updates:", error);
     document.getElementById("live-title").textContent =
       "Failed to load live updates.";
   }
 }
+
 
 startLiveUpdates();
 
