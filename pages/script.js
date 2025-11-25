@@ -16,9 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function changeNews(category, imgId, descId) {
   const container = document.getElementById(`${category}-news`);
+  const shimmer = container.querySelector(".shimmer"); 
   const img = document.getElementById(imgId);
   const desc = document.getElementById(descId);
 
+  shimmer.classList.remove("hidden");
+  img.classList.add("hidden");
+  desc.classList.add("hidden");
+
+  await new Promise(res => setTimeout(res, 800));
 
   try {
     const res = await fetch(
@@ -45,6 +51,11 @@ async function changeNews(category, imgId, descId) {
     }
 
     showNext();
+
+    shimmer.classList.add("hidden");
+    img.classList.remove("hidden");
+    desc.classList.remove("hidden");
+
     setInterval(showNext,10000);
 
     container.addEventListener("click", () => {
@@ -57,6 +68,10 @@ async function changeNews(category, imgId, descId) {
   } catch (error) {
     console.error(`Error fetching ${category} news:`, error);
     desc.textContent = `Failed to load ${category} news.`;
+
+    shimmer.classList.add("hidden");
+    img.classList.remove("hidden");
+    desc.classList.remove("hidden");
   }
 }
 
@@ -73,7 +88,6 @@ async function startLiveUpdates() {
 
     const data = await response.json();
 
-    // 🔥 Fix: No live posts available
     if (!Array.isArray(data) || data.length === 0) {
      const Live = document.getElementById("live-title")
      Live.textContent = "No live updates available right now.";

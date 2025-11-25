@@ -1,64 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   loadLatestNews();
-// });
-
-// async function loadLatestNews() {
-//   const latestMain = document.getElementById("latestMain");
-//   const latestScroll= document.getElementById("latestScroll");
-
-//  latestMain.innerHTML = "<p>Loading...</p>";
-
-//   try {
-//     const res = await fetch("https://newsapi-w6iw.onrender.com/api/news/latest");
-
-//     if (!res.ok) throw new Error("Failed to load news");
-
-//     const data = await res.json();
-
-//     const mainItems = data.slice(0, 3);
-//     const scrollItems = data.slice(3);
-
-//     latestMain.innerHTML = `
-//       <div class="flex flex-col lg:flex-row w-full gap-5">
-
-//         <img class=" lg:w-[40%] border border-red-800 rounded-md h-[250px]" src="${mainItems[0].picUrl}" alt="">
-
-//          <div class="flex flex-col gap-4 w-full lg:w-[60%]"> ${mainItems.slice(1, 3).map (news => `
-//           <div class="flex gap-3 items-start">
-//             <div class="flex-1">
-//               <p class="font-medium">${news.title}</p>
-//               <p class="text-[12px] text-gray-600">${news.category} - ${formatDate(news.datePosted)}</p>
-//                 </div>
-
-//                 <img class="w-[80px] h-[60px] rounded-md" src="${news.picUrl}" alt="" >
-//             </div>
-//             `
-//             ).join("")}
-//         </div>
-//       </div>
-//     `;
-
-//     latestScroll.innerHTML = scrollItems
-//       .map(news => `
-//       <div class="flex flex-col gap-2 shrink-0 w-[180px]">
-//         <img class="rounded-md h-[100px] object-cover" src="${news.picUrl}" alt="">
-//         <p class="font-medium text-[15px] line-clamp-2"> ${news.title}
-//         </p>
-//         <p class="text-[12px] text-gray-600">${news.category} - ${formatDate(news.datePosted)}</p>
-//       </div>
-//     ` ).join("");
-
-//   } catch (error) {
-//   latestMain.innerHTML = "<p>Could not load news.</p>";
-//   latestMain.classlist.add("text-red-600")
-//     console.error("Latest News Error:", error);
-//   }
-// }
-// function formatDate(dateStr) {
-//   return new Date(dateStr).toDateString();
-// }
-
-
 document.addEventListener("DOMContentLoaded", loadLatestNews);
 
 function formatDate(date) {
@@ -105,7 +44,7 @@ async function loadLatestNews() {
               <div class="flex-1">
                 <p class="font-semibold text-[15px] sm:text-[17px]">${news.title}</p>
                 <p class="text-[12px] sm:text-[13px] text-gray-600">
-                  ${news.category} – ${formatDate(
+                  ${news.category} - ${formatDate(
                 news.datePosted || news.createdAt
               )}
                 </p>
@@ -122,7 +61,6 @@ async function loadLatestNews() {
       </div>
     `;
 
-    // --- SCROLL SECTION (100% RESPONSIVE) ---
     latestScroll.innerHTML = scroll
       .map(
         (news) => `

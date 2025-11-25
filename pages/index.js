@@ -14,6 +14,12 @@ const apiURL = "https://";
 
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  const params = new URLSearchParams(window.location.search);
+
+  if(!params.get("name")){
+    window.location.replace("index.html?name=world")
+  }
   const { getCookie, setCookie, deleteCookie } = cookies();
 
   const authToken = getCookie("authToken");
@@ -26,20 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const direction = document.getElementById("direction");
   const showPasswordBtn = document.getElementById("showPassword");
 
-  // Hide login button if already logged in
   if (authToken) {
     settingBtn.style.display = "none";
   } else {
     settingBtn.addEventListener("click", () => loginModalWrapper.classList.remove("hidden"));
   }
 
-  // Close modal
   closeBtn.addEventListener("click", () => loginModalWrapper.classList.add("hidden"));
   loginModalWrapper.addEventListener("click", (e) => {
     if (e.target === loginModalWrapper) loginModalWrapper.classList.add("hidden");
   });
 
-  // Toggle password visibility
   showPasswordBtn.addEventListener("click", () => {
     const type = passwordInput.type === "password" ? "text" : "password";
     passwordInput.type = type;
@@ -47,11 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     showPasswordBtn.classList.toggle("fa-eye-slash");
   });
 
-  // Prefill email if saved
   const savedEmail = getCookie("userEmail");
   if (savedEmail) emailInput.value = savedEmail;
 
-  // Login form submit
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const theemail = emailInput.value.trim();
@@ -72,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ email: theemail, password: thepassword }),
       });
 
-      // Check if response is JSON
       const contentType = res.headers.get("content-type");
       let data = {};
       if (contentType && contentType.includes("application/json")) {
@@ -103,7 +103,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Add your existing news + live updates code here...
+
+  async function loadTrending() {
+  const skeleton = document.getElementById("trending-skeleton");
+  const real = document.getElementById("trending");
+
+  // Show skeleton first
+  skeleton.style.display = "flex";
+  real.classList.add("hidden");
+
+  try {
+    const res = await fetch("https://newsapi-w6iw.onrender.com/api/news/trending");
+    const data = await res.json();
+
+    // Update real content
+    document.getElementById("world-img").src = data.world.image;
+    document.getElementById("world-desc").textContent = data.world.desc;
+
+    document.getElementById("technology-img").src = data.tech.image;
+    document.getElementById("technology-desc").textContent = data.tech.desc;
+
+    document.getElementById("health-img").src = data.health.image;
+    document.getElementById("health-desc").textContent = data.health.desc;
+
+    document.getElementById("sports-img").src = data.sports.image;
+    document.getElementById("sports-desc").textContent = data.sports.desc;
+
+    // Hide skeleton, show real content
+    skeleton.style.display = "none";
+    real.classList.remove("hidden");
+
+  } catch (err) {
+    console.error("Error loading trending:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadTrending);
+
 });
 
 })

@@ -143,8 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
               console.log("hello",res.status)
-              // console.log("Trying to delete id:", news._id);
-
 
              if (res.status === 204) {
                 item.remove();              
