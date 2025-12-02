@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   title.textContent = categoryName.toUpperCase();
 
-  fetch(`https://newsapi-w6iw.onrender.com/api/news/category/${categoryName}`)
+  fetch(`https://newsapi-w6iw.onrender.com/api/news/category/${encodeURIComponent(categoryName)}`)
     .then((res) => res.json())
     .then((content) => {
       loading.remove();
@@ -161,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           });
 
-        // Edit action
         dropdown.querySelector(".edit-btn").addEventListener("click", () => {
           window.location.href = `../pages/dashboard.html?editId=${news._id}`;
         });

@@ -10,6 +10,7 @@
   <title>Blog</title>
 </head>
 <body class="bg-gray-100 flex flex-col gap-[4em]">
+
   <header class="flex flex-col justify-center items-center fixed top-0 w-full z-40 bg-gray-100">
   <div class="border-t border-black border-b py-2 text-[15px] px-2 w-full">
 
@@ -82,7 +83,7 @@
 
   <main class="flex flex-col gap-5 items-center justify-center px-7 pt-[14em]">
 
-    <section class="flex flex-col gap-4">
+    <section class="flex flex-col gap-[3em] items-center justify-center ">
 
       <div id="trending" class="flex flex-wrap lg:grid lg:grid-cols-3 gap-4 lg:justify-between items-center px-3">
 
@@ -165,20 +166,23 @@
       </div>
 
 
-  <div id="live-update" class="flex flex-col gap-5 items-center">
-    <img id="live-img" class="lg:h-[90vh] lg:w-[60em] rounded-[10px]" src="" alt="live update">
+  <div id="live-update" class="flex flex-col gap-5 items-center w-full justify-center h-[80vh] lg:h-[100vh] lg:w-[80%]">
+  <div class="relative w-full h-full">
+    <img id="live-img" class="absolute h-full w-full rounded-[10px]" src="" alt="live update">
+  </div>
 
-    <div class="flex flex-col gap-5 justify-between px-2 items-center">
-      <div class="lg:w-[80%] flex flex-col gap-3">
-        <div class="flex justify-between">
-          <button id="live-category" class="border-2 border-black rounded-[10px] px-4 py-1 text-[13px]"></button>
-          <button id="live-author" class="border-2 border-black rounded-[10px] px-4 py-1 text-[13px]"></button>
-        </div>
-          <p id="live-title" class="font-[600] text-[20px] lg:text-[30px]"> </p>
-        </div>
+      <div class="flex flex-col gap-5 justify-between items-center w-full">
+        <div class="flex flex-col gap-3 w-full">
+          <div class="flex justify-between">
+            <button id="live-category" class="rounded-[10px] px-4 py-1 text-[13px] bg-gradient-to-r from-blue-950 to-indigo-900 via-gray-900 text-white font-semibold"></button>
 
-      <div class="flex w-full justify-between text-gray-600 font-[500] text-[12px] items-center">
-        <p id="live-date"></p>
+            <button id="live-author" class="rounded-[10px] px-4 py-1 text-[13px] bg-gradient-to-r from-blue-950 to-indigo-900 via-gray-900 text-white font-semibold"></button>
+          </div>
+            <p id="live-title" class="font-[600] text-[20px] lg:text-[30px]"> </p>
+          </div>
+
+        <div class="flex w-full justify-between text-gray-600 font-[500] text-[12px] items-center">
+          <p id="live-date"></p>
         <p id="readArticle" class="flex items-center gap-2 text-green-700 font-[500] active:scale-110 transition duration-300 cursor-pointer hover:bg-gray-300 py-2 px-3 rounded-lg">
           Read Article <i class="fas fa-arrow-right"></i>
         </p>

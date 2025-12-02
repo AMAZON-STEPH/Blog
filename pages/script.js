@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     exist();
     search();
 
-  changeNews("world news", "world-img", "world-desc");
+  changeNews("world", "world-img", "world-desc");
   changeNews("technology", "technology-img", "technology-desc");
   changeNews("health", "health-img", "health-desc");
   changeNews("sports", "sports-img", "sports-desc");
@@ -99,6 +99,7 @@ async function startLiveUpdates() {
 
     function showLiveItem(index) {
       const item = data[index];
+      console.log(item)
 
       document.getElementById("live-img").src =
         item.picUrl || "./images/default.png";
@@ -107,7 +108,7 @@ async function startLiveUpdates() {
       document.getElementById("live-category").textContent =
         (item.category || "news").toUpperCase();
       document.getElementById("live-author").textContent =
-        item.user || "Unknown";
+        item.user.email.slice(0,4).toUpperCase() || "Unknown";
       document.getElementById("live-title").textContent =
         item.title || "Untitled";
 
@@ -116,7 +117,7 @@ async function startLiveUpdates() {
 
         const readArticle = document.getElementById("readArticle")
         readArticle.addEventListener("click", () => {
-           window.location.href = `../pages/detail.html?id=${item.id}`
+           window.location.href = `../pages/detail.html?id=${item.slug}`
         })
     }
 
@@ -251,3 +252,4 @@ const savedEmail = localStorage.getItem("userEmail");
     }
   });
 });
+

@@ -21,13 +21,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const { getCookie } = cookies();
   const token = getCookie("authtoken");
-
-  if (!token) {
-    uploadMsg.textContent = "You are not logged in. Redirecting to login...";
-    uploadMsg.classList.add("text-red-600");
-    setTimeout(() => (window.location.href = "/index.html"), 1000);
-    return;
-  }
+  console.log(token);
+  
+  // if (!token) {
+  //   uploadMsg.textContent = "You are not logged in. Redirecting to login...";
+  //   uploadMsg.classList.add("text-red-600");
+  //   setTimeout(() => (window.location.href = "/index.html"), 1000);
+  //   return;
+  // }
 
   console.log("Authenticated user:", getCookie("userEmail"));
 

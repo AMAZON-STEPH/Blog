@@ -11,7 +11,7 @@ export function Nav() {
     item.classList.remove("text-red-600");
 
     if (item.getAttribute("data-category") === currentCategory) {
-      item.classList.add("text-red-600");  // highlight active
+      item.classList.add("text-red-600");
     }
   });
 
@@ -176,8 +176,8 @@ const params = new URLSearchParams(window.location.search);
             <h2 class="text-[26px] lg:text-[32px] font-[700]">${data.title}</h2>
 
             <div class="relative w-full max-w-[400px] md:max-w-[600px] lg:max-w-[700px] mx-auto">
-            <div class="absolute -inset-2 rounded-full border-4 border-green-500 ring-animation"></div>
-            <img  class="w-full max-w-[400px] md:max-w-[600px] lg:max-w-[700px] h-auto lg:max-h-[90vh] rounded-[2em] mx-auto relative z-10" src="${data.picUrl}" alt="${data.title}" class="w-full rounded-[8px] shadow-md">
+
+            <img  class="border-2 border-blue-950 w-full max-w-[400px] md:max-w-[600px] lg:max-w-[700px] h-auto lg:max-h-[90vh] rounded-[2em] mx-auto relative z-10" src="${data.picUrl}" alt="${data.title}" class="w-full rounded-[8px] shadow-md">
             </div>
             <p class="text-[16px] leading-7">${data.content}</p>
           </div>
@@ -269,7 +269,6 @@ export function search() {
         });
       } catch (err) {
         results.innerHTML = `<p class="text-red-600">Error loading results.</p>`;
-        // console.log(err)
 
       }
     });
