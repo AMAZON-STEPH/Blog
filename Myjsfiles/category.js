@@ -55,12 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
         
         <div class="dropdown fixed inset-0 bg-black/50 flex justify-center items-start pt-20 z-40 hidden">
           
-          <div class="option flex flex-col w-[60%] lg:w-[60%] h-[35vh] rounded-[5px] justify-center gap-2 bg-white p-5 relative">
+          <div class="option flex flex-col w-[60%] lg:w-[30%] h-[30vh] lg:h-[25vh] rounded-[5px] justify-center gap-2 bg-white p-2 relative">
            <div class="flex justify-end">
-            <i class="fas fa-remove hover:bg-gray-200 p-2 rounded-full cursor-pointer close-modal text-[17px]"></i>
+            <i class="fas fa-remove hover:bg-gray-300 p-2 rounded-full cursor-pointer close-modal text-[17px]"></i>
            </div>
-            <p type="button" class="px-4 py-2 hover:bg-gray-200 cursor-pointer edit-btn text-blue-600 hover:underline rounded active:scale-110 transition-all">Edit</p>
-            <p type="button" class="px-4 py-2 hover:bg-gray-200 cursor-pointer delete-btn text-red-600 active:scale-110 transition-all rounded">Delete</p>
+            <p type="button" class="px-2 py-2 hover:bg-gray-200 cursor-pointer edit-btn text-blue-600 hover:underline rounded active:scale-110 transition-all">Edit</p>
+            <p type="button" class="px-2 py-2 hover:bg-red-600 hover:text-white cursor-pointer delete-btn text-red-600 active:scale-110 transition-all rounded">Delete</p>
             </div>
           </div>
         </div>
@@ -106,13 +106,13 @@ document.addEventListener("DOMContentLoaded", () => {
           dialog.className =
             " fixed inset-0 bg-black/50 flex justify-center items-center z-50";
           dialog.innerHTML = `
-          <div class="flex flex-col w-[60%] lg:w-[60%] h-[30vh] rounded-[5px] justify-center gap-2 bg-white p-5 relative">
-            <h3>Do you want to delete this post</h3>
-            <div class="flex justify-end gap-3 mt-4">
+          <div class="flex flex-col w-[60%] lg:w-[30%] h-[20vh] lg:h-[] rounded-[5px] justify-center gap-2 bg-white p-5 relative">
+            <h3 class="text-15px font-[500]">Do you want to delete this post</h3>
+            <div class="flex justify-between gap-3 mt-4 w-full">
               <button class="cancel-btn px-4 py-1 rounded bg-gray-200 hover:bg-gray-500 active:scale-110 transition-all">Cancel</button>
               <button class="confirm-delete-btn px-4 py-1 rounded bg-red-600 text-white hover:bg-red-600/80 active:scale-110 transition-all">Delete</button>
             </div>
-            <i class="fas fa-remove absolute top-3 right-3 hover:bg-gray-200 p-2 rounded-full cursor-pointer close-modal font-bold active:scale-110 transition-all"></i>
+            <i class="fas fa-remove absolute top-2 right-3 hover:bg-gray-200 p-2 rounded-full cursor-pointer close-modal font-bold active:scale-110 transition-all"></i>
             </div>
           `;
           document.body.appendChild(dialog);

@@ -203,10 +203,11 @@ export function search() {
   dropdown.innerHTML = `
     <div class="bg-white md:w-[60%] w-[100%] h-[50vh] lg:h-[60vh] py-4 px-2 rounded-[10px] overflow-hidden flex flex-col gap-2">
 
-      <div class="flex justify-start">
-        <i id="closeSearch" class="fas fa-remove font-bold text-[20px] cursor-pointer hover:bg-gray-300 p-2 rounded-full transition-all active:scale-110"></i>
+     <div class="flex justify-between">
+      <input id="input" type="search" placeholder="Search trending news..." class="w-[90%] border border-gray-400 p-2 rounded-lg mb-3 animate-pulse placeholder:text-blue-800 outline-border-gray-300">
+       
+        <i id="closeSearch" class="fas fa-remove font-bold text-[20px] cursor-pointer hover:bg-gray-300 px-2 pt-2 pb-[-2px] rounded-full transition-all active:scale-110"></i>
       </div>
-      <input id="input" type="search" placeholder="Search trending news..." class="w-full border border-gray-400 p-2 rounded-lg mb-3 animate-pulse placeholder:text-blue-800 outline-none">
 
       <div id="results" class="space-y-3 flex-1 overflow-y-auto"></div>
     </div>
