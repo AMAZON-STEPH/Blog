@@ -233,7 +233,7 @@ const savedEmail = localStorage.getItem("userEmail");
       setCookie("userEmail", data.user.email, 7);
 
       // Name does not exist in API, so create a default
-      setCookie("userName", data.user.email.split("@")[0], 7);
+      setCookie("userName", data.user.email.split("@")[0], 4);
 
       localStorage.setItem("userEmail", data.user.email);
 

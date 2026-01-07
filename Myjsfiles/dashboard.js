@@ -20,15 +20,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   isLive.addEventListener("change", (e) => console.log(isLive.checked));
 
   const { getCookie } = cookies();
-  const token = getCookie("authtoken");
+  const token = getCookie("token");
   console.log(token);
   
-  // if (!token) {
-  //   uploadMsg.textContent = "You are not logged in. Redirecting to login...";
-  //   uploadMsg.classList.add("text-red-600");
-  //   setTimeout(() => (window.location.href = "/index.html"), 1000);
-  //   return;
-  // }
+  if (!token) {
+    uploadMsg.textContent = "You are not logged in. Redirecting to login...";
+    uploadMsg.classList.add("text-red-600");
+    setTimeout(() => (window.location.href = "/index.html"), 1000);
+    return;
+  }
 
   console.log("Authenticated user:", getCookie("userEmail"));
 
